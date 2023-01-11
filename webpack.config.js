@@ -5,11 +5,6 @@ module.exports = {
   watch: true,
   entry: {
     'js/app' : './src/js/app.js',
-    'js/inicio' : './src/js/inicio.js',
-    'js/aplicacion/nueva' : './src/js/aplicaciones/nueva.js',
-    'js/aplicacion/asignacion' : './src/js/aplicaciones/asignacion.js',
-    'js/aplicacion/control' : './src/js/aplicaciones/control.js',
-    'js/tareas/index' : './src/js/tareas/index.js',
   },
   output: {
     filename: '[name].js',
