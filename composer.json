@@ -2,6 +2,9 @@
     "name": "mindef/aplicaciones",
     "description": "Proyecto para el control de aplicaciones",
     "type": "project",
+    "config": {
+        "platform-check": false
+    },
     "autoload": {
         "psr-4": {
             "MVC\\" : "./",
