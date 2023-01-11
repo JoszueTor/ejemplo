@@ -26,26 +26,16 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/aplicaciones/"><i class="bi bi-house-fill me-2"></i>Inicio</a>
                     </li>
-                    <li>
-                        <a class="nav-link" href="/aplicaciones/control"><i class="ms-lg-0 ms-2 bi bi-boxes me-2"></i>Control de apps</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/aplicaciones/tareas"><i class="ms-lg-0 ms-2 bi bi-list-task me-2"></i>Ingreso de tareas</a>
-                    </li>
-                    
+  
                     <div class="nav-item dropdown " >
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>Administración
+                            <i class="bi bi-gear me-2"></i>Dropdown
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Nueva app</a>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
                             </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/asignacion"><i class="ms-lg-0 ms-2 bi bi-person-plus-fill me-2"></i>Asignar app</a>
-                            </li>
-                            
                         
                     
                         

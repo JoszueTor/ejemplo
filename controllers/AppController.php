@@ -6,7 +6,7 @@ use MVC\Router;
 
 class AppController {
     public static function index(Router $router){
-        $router->render('tareas/index', []);
+        $router->render('pages/index', []);
     }
 
 }
