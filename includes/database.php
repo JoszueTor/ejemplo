@@ -6,8 +6,9 @@ try {
     $server = $_ENV['DB_SERVER'];
     $user = $_ENV['DB_USER'];
     $pass = $_ENV['DB_PASS'];
+    $database = $_ENV['DB_NAME'];
 
-    $db =  new PDO("informix:host=$host; service=$service;database=prueba; server=$server; protocol=onsoctcp;EnableScrollableCursors=1", "$user", "$pass");
+    $db =  new PDO("informix:host=$host; service=$service;database=$database; server=$server; protocol=onsoctcp;EnableScrollableCursors=1", "$user", "$pass");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    
     
