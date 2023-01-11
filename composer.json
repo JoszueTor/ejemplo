@@ -1,0 +1,19 @@
+{
+    "name": "mindef/aplicaciones",
+    "description": "Proyecto para el control de aplicaciones",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
+            "Classes\\" : "./classes"
+        }
+    },
+    "require": {
+        "mpdf/mpdf": "^8.1",
+        "phpmailer/phpmailer": "^6.6",
+        "dompdf/dompdf": "^2.0",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
