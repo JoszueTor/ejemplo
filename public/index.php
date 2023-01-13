@@ -5,13 +5,15 @@
 require_once __DIR__ . '/../includes/app.php';
 
 
+use Controllers\ProductoController;
 use MVC\Router;
 use Controllers\AppController;
 $router = new Router();
 $router->setBaseURL('/ejemplo');
 
 $router->get('/', [AppController::class,'index']);
-
+$router->get('/productos', [ProductoController::class,'inicio']);
+$router->get('/api/productos', [ProductoController::class,'productosAPI']);
 
 
 
