@@ -25,4 +25,5 @@
         </div>
     </form>
 </div>
+
 <script src="build/js/productos/index.js"></script>

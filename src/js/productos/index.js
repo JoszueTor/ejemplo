@@ -1,3 +1,4 @@
+
 import { Dropdown } from "bootstrap";
 import { validarFormulario, Toast } from "../funciones";
 
@@ -56,3 +57,4 @@ const guardarProducto = async (evento) => {
 }
 
 formProductos.addEventListener('submit', guardarProducto )
+

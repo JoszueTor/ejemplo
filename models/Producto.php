@@ -3,6 +3,7 @@
 namespace Model;
 
 class Producto extends ActiveRecord{
+
     protected static $tabla = 'docker_productos'; //nombre de la tablaX
     protected static $columnasDB = ['ID','NOMBRE','PRECIO','SITUACION'];
 
