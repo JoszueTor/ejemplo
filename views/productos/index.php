@@ -20,12 +20,15 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button class="btn btn-primary w-100">Guardar</button>
+                <button id="btnGuardar" type="submit" class="btn btn-primary w-100">Guardar</button>
+            </div>
+            <div class="col">
+                <button id="btnModificar" type="button" class="btn btn-warning w-100">Modificar</button>
             </div>
         </div>
     </form>
 </div>
-<div class="row">
+<div class="row" id="divTabla">
     <div class="col-lg-10">
         <table id="productosTabla" class="table table-bordered table-hover w-100">
             <thead>
