@@ -1,24 +1,35 @@
 <?php
 
 namespace Controllers;
+
 use Model\Producto;
 use MVC\Router;
-
 class ProductoController{
-    public static function inicio(Router $router ){
-        $productos = Producto::where('situacion', 1);
-        $router->render('productos/index', [
-            'productos' => $productos
-        ]);
+
+    public function index(Router $router)
+    {
+        $router->render('productos/index');
     }
 
-    public static function productosAPI(){
+    public function guardarAPI(){
         getHeadersApi();
-        $id = $_GET['id'];
-        $productos = Producto::find($id);
+        $producto = new Producto($_POST);
+        
+        $resultado = $producto->guardar();
 
-        echo json_encode($productos);
+        if($resultado['resultado'] == 1){
+            echo json_encode([
+                "resultado" => 1
+            ]);
+            
+        }else{
+            echo json_encode([
+                "resultado" => 0
+            ]);
+
+        }
     }
 
-}
+
+} 
 
