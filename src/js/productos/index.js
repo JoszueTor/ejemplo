@@ -1,6 +1,8 @@
 
 import { Dropdown } from "bootstrap";
 import { validarFormulario, Toast } from "../funciones";
+import Datatable from 'datatables.net-bs5';
+import { lenguaje } from "../lenguaje";
 
 const formProductos = document.getElementById('formProductos');
 
@@ -55,6 +57,60 @@ const guardarProducto = async (evento) => {
         console.log(error);
     }
 }
+
+const buscarProducto = async (evento) => {
+    evento && evento.preventDefault();
+
+    try {
+        const url = '/ejemplo/API/productos/buscar'
+        const headers = new Headers();
+        headers.append("X-requested-With", "fetch");
+
+        const config = {
+            method : 'GET',
+        }
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+
+        // console.log(data);
+
+        const tablaProductos = new Datatable('#productosTabla');
+        tablaProductos.destroy();
+
+        new Datatable('#productosTabla', {
+            language : lenguaje,
+            data : data,
+            columns : [
+                { data : 'id'},
+                { data : 'nombre'},
+                { 
+                    data : 'precio',
+                    render : (data, type, row, meta) => {
+                        return `Q. ${data}`
+                    } 
+                },
+                { 
+                    data : 'id',
+                    'render': (data, type, row, meta) => {
+                        return `<button class="btn btn-warning">Modificar</button>`
+                    } 
+                },
+                { 
+                    data : 'id',
+                    'render': (data, type, row, meta) => {
+                        return `<button class="btn btn-danger">Eliminar</button>`
+                    } 
+                },
+            ]
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+buscarProducto();
 
 formProductos.addEventListener('submit', guardarProducto )
 

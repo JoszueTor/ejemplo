@@ -25,5 +25,22 @@
         </div>
     </form>
 </div>
+<div class="row">
+    <div class="col-lg-10">
+        <table id="productosTabla" class="table table-bordered table-hover w-100">
+            <thead>
+                <tr>
+                    <th>NO.</th>
+                    <th>NOMBRE</th>
+                    <th>PRECIO</th>
+                    <th>MODIFICAR</th>
+                    <th>ELIMINAR</th>
+                </tr>
+            </thead>
+            <tbody>
 
+            </tbody>
+        </table>
+    </div>
+</div>
 <script src="build/js/productos/index.js"></script>
