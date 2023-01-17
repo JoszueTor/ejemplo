@@ -28,7 +28,7 @@
         </div>
     </form>
 </div>
-<div class="row" id="divTabla">
+<div class="row justify-content-center" id="divTabla">
     <div class="col-lg-10">
         <table id="productosTabla" class="table table-bordered table-hover w-100">
             <thead>
