@@ -148,6 +148,16 @@ class ActiveRecord {
         return $array;
     }
 
+    public static function fetchArray($query){
+        $resultado = self::$db->query($query);
+        $respuesta = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($respuesta as $value) {
+            $data[] = array_change_key_case($value); 
+        }
+        $resultado->closeCursor();
+        return $data;
+    }
+
     protected static function crearObjeto($registro) {
         $objeto = new static;
 
