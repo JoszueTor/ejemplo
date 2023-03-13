@@ -2,20 +2,20 @@
 
 namespace Controllers;
 
-use Model\Producto;
+use Model\Lote;
 use MVC\Router;
-class ClientesController{
+class LoteController{
 
     public function index(Router $router)
     {
-        $router->render('clientes/index');
+        $router->render('Lote/index');
     }
 
     public function guardarAPI(){
         getHeadersApi();
-        $producto = new Producto($_POST);
+        $Lote = new Lote($_POST);
         
-        $resultado = $producto->guardar();
+        $resultado = $Lote->guardar();
 
         if($resultado['resultado'] == 1){
             echo json_encode([
@@ -32,15 +32,15 @@ class ClientesController{
 
     public function buscarApi(){
         getHeadersApi();
-        $productos = Producto::where('situacion', '1');
-        echo json_encode($productos);
+        $Lotes = Lote::where('situacion', '1');
+        echo json_encode($Lotes);
     }
 
     public function modificarAPI(){
         getHeadersApi();
-        $producto = new Producto($_POST);
+        $Lote = new Lote($_POST);
         
-        $resultado = $producto->guardar();
+        $resultado = $Lote->guardar();
 
         if($resultado['resultado'] == 1){
             echo json_encode([
@@ -58,9 +58,9 @@ class ClientesController{
     public function eliminarAPI(){
         getHeadersApi();
         $_POST['situacion'] = 0;
-        $producto = new Producto($_POST);
+        $Lote = new Lote($_POST);
         
-        $resultado = $producto->guardar();
+        $resultado = $Lote->guardar();
 
         if($resultado['resultado'] == 1){
             echo json_encode([
@@ -74,5 +74,6 @@ class ClientesController{
 
         }
     }
+    
 } 
 

@@ -29,12 +29,15 @@
   
                     <div class="nav-item dropdown " >
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>Dropdown
+                            <i class="bi bi-gear me-2"></i>Administracion
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/productos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Producto</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Lote</a>
                             </li>
                         
                     
