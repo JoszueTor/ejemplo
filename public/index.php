@@ -6,6 +6,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 
 use Controllers\ProductoController;
+use Controllers\ClientesController;
 use MVC\Router;
 use Controllers\AppController;
 $router = new Router();
@@ -14,6 +15,7 @@ $router->setBaseURL('/ejemplo');
 $router->get('/', [AppController::class,'index']);
 
 $router->get('/productos', [ProductoController::class , 'index']);
+$router->get('/clientes', [ClientesController::class , 'index']);
 $router->post('/API/productos/guardar', [ProductoController::class, 'guardarAPI'] );
 $router->get('/API/productos/buscar', [ProductoController::class, 'buscarAPI'] );
 $router->post('/API/productos/modificar', [ProductoController::class, 'modificarAPI'] );
