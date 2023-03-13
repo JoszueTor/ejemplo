@@ -2,10 +2,11 @@
 
 namespace Model;
 
-class Producto extends ActiveRecord{
+class Producto extends ActiveRecord
+{
 
-    protected static $tabla = 'docker_productos'; //nombre de la tablaX
-    protected static $columnasDB = ['ID','NOMBRE','PRECIO','SITUACION'];
+    protected static $tabla = 'docker_product'; //nombre de la tablaX
+    protected static $columnasDB = ['ID', 'NOMBRE', 'PRECIO', 'SITUACION'];
 
     public $id;
     public $nombre;
@@ -13,7 +14,8 @@ class Producto extends ActiveRecord{
     public $situacion;
 
 
-    public function __construct($args = []){
+    public function __construct($args = [])
+    {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->precio = $args['precio'] ?? '';
