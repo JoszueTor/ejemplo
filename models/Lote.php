@@ -2,22 +2,28 @@
 
 namespace Model;
 
-class Lote extends ActiveRecord{
+class Lote extends ActiveRecord
+{
+
 
     protected static $tabla = 'municion_lote'; //nombre de la tablaX
-    protected static $columnasDB = ['LOTE_ID','LOTE_DESC','LOTE_DEP','LOTE_SITUACION'];
+    protected static $columnasDB = ['LOTE_ID', 'LOTE_DESC', 'LOTE_SIT'];
 
-    public $id;
-    public $desc;
-    public $dep;
-    public $sit;
+    public $lote_id;
+    public $lote_desc;
+
+    public $lote_sit;
 
 
-    public function __construct($args = []){
-        $this->id = $args['lote_id'] ?? null;
-        $this->desc = $args['lote_desc'] ?? '';
-        $this->dep = $args['lote_dep'] ?? '';
-        $this->sit = $args['lote_situaicon'] ?? '1';
+
+
+    public function __construct($args = [])
+    {
+        $this->lote_id = $args['lote_id'] ?? '0';
+        $this->lote_desc = $args['lote_desc'] ?? '';
+
+        $this->lote_sit = $args['lote_sit'] ?? '1';
     }
+
 
 }

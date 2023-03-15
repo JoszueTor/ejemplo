@@ -4,57 +4,59 @@ import Datatable from 'datatables.net-bs5';
 import { lenguaje } from "../lenguaje";
 import Swal from "sweetalert2";
 
-const formProductos = document.getElementById('formProductos');
+
+
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const divTabla = document.getElementById('divTabla');
-let tablaProductos = new Datatable('#productosTabla');
+let tablaLote = new Datatable('#tablalote');
 
-btnModificar.parentElement.style.display = 'none';
-btnGuardar.disabled = false;
-btnModificar.disabled = true;
+const formLote = document.getElementById('formLote')
 
-const guardarProducto = async (evento) => {
+
+const guardarLote = async (evento) => {
     evento.preventDefault();
-    
-    let formularioValido = validarFormulario(formProductos, ['id']);
 
-    if(!formularioValido || formProductos.precio.value < 1 ){ 
+    let formularioValido = validarFormulario(formLote, ['id']);
+    if (!formularioValido) {
         Toast.fire({
-            icon : 'warning',
-            title : 'Debe llenar todos los campos'
+            icon: 'warning',
+            title: 'Debe llenar todos los campos'
         })
         return;
     }
 
+
+
     try {
         //Crear el cuerpo de la consulta
-        const url = '/ejemplo/API/productos/guardar'
-        const body = new FormData(formProductos);
+        const url = '/ejemplo/API/Lote/guardar'
+        const body = new FormData(formLote);
         body.delete('id');
         const headers = new Headers();
-        headers.append("X-requested-With", "fetch");
+        headers.append("X-Requested-With", "fetch");
 
         const config = {
-            method : 'POST',
+            method: 'POST',
             headers,
             body
         }
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-
-        const {resultado} = data;
+        
+        const { resultado, mensaje } = data;
         // const resultado = data.resultado;
-
+        // console.log(data);
+        
         if(resultado == 1){
             Toast.fire({
                 icon : 'success',
                 title : 'Registro guardado'
             })
 
-            formProductos.reset();
-            buscarProducto();
+            formLote.reset();
+            buscarLote();
         }else{
             Toast.fire({
                 icon : 'error',
@@ -62,16 +64,18 @@ const guardarProducto = async (evento) => {
             })
         }
 
+
+
     } catch (error) {
         console.log(error);
     }
 }
 
-const buscarProducto = async (evento) => {
+const buscarLote = async (evento) => {
     evento && evento.preventDefault();
 
     try {
-        const url = '/ejemplo/API/productos/buscar'
+        const url = '/ejemplo/API/Lote/buscar'
         const headers = new Headers();
         headers.append("X-requested-With", "fetch");
 
@@ -82,38 +86,33 @@ const buscarProducto = async (evento) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        // console.log(data);
+        console.log(data);
 
         
-        tablaProductos.destroy();
+        tablaLote.destroy();
         let contador = 1;
-        tablaProductos = new Datatable('#productosTabla', {
+        tablaLote = new Datatable('#tablaLote', {
             language : lenguaje,
             data : data,
             columns : [
                 { 
-                    data : 'id',
+                    data : 'lote_id',
                     render : () => {      
                         return contador++;
                     }
                 },
-                { data : 'nombre'},
+                { data : 'lote_id'},
+               
                 { 
-                    data : 'precio',
-                    render : (data, type, row, meta) => {
-                        return `Q. ${data}`
+                    data : 'lote_id',
+                    'render': (data, type, row, meta) => {
+                        return `<button class="btn btn-warning" onclick="asignarValores('${row.id}', '${row.desc}', '${row.dep}')">Modificar</button>`
                     } 
                 },
                 { 
-                    data : 'id',
+                    data : 'lote_id',
                     'render': (data, type, row, meta) => {
-                        return `<button class="btn btn-warning" onclick="asignarValores('${row.id}', '${row.nombre}', '${row.precio}')">Modificar</button>`
-                    } 
-                },
-                { 
-                    data : 'id',
-                    'render': (data, type, row, meta) => {
-                        return `<button class="btn btn-danger" onclick="eliminarRegistro('${row.id}')">Eliminar</button>`
+                        return `<button class="btn btn-danger" onclick="eliminarRegistro('${row.lote_id}')">Eliminar</button>`
                     } 
                 },
             ]
@@ -124,64 +123,7 @@ const buscarProducto = async (evento) => {
     }
 }
 
-const modificarProducto = async (evento) => {
-    evento.preventDefault();
-    
-    let formularioValido = validarFormulario(formProductos);
-
-    if(!formularioValido || formProductos.precio.value < 1 ){ 
-        Toast.fire({
-            icon : 'warning',
-            title : 'Debe llenar todos los campos'
-        })
-        return;
-    }
-
-    try {
-        //Crear el cuerpo de la consulta
-        const url = '/ejemplo/API/productos/modificar'
-        const body = new FormData(formProductos);
-        const headers = new Headers();
-        headers.append("X-requested-With", "fetch");
-
-        const config = {
-            method : 'POST',
-            headers,
-            body
-        }
-
-        const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-
-        const {resultado} = data;
-        // const resultado = data.resultado;
-
-        if(resultado == 1){
-            Toast.fire({
-                icon : 'success',
-                title : 'Registro modificado'
-            })
-            buscarProducto();
-            formProductos.reset();
-            btnModificar.parentElement.style.display = 'none';
-            btnGuardar.parentElement.style.display = '';
-            btnGuardar.disabled = false;
-            btnModificar.disabled = true;
-        
-            divTabla.style.display = ''
-        }else{
-            Toast.fire({
-                icon : 'error',
-                title : 'Ocurrió un error'
-            })
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-buscarProducto();
+buscarLote();
 
 window.asignarValores = (id, nombre, precio) => {
     formProductos.id.value = id;
@@ -195,6 +137,8 @@ window.asignarValores = (id, nombre, precio) => {
     divTabla.style.display = 'none'
 }
 
+
+
 window.eliminarRegistro = (id) => {
     Swal.fire({
         title : 'Confirmación',
@@ -206,7 +150,7 @@ window.eliminarRegistro = (id) => {
         confirmButtonText: 'Si, eliminar'
     }).then( async (result) => {
         if(result.isConfirmed){
-            const url = '/ejemplo/API/productos/eliminar'
+            const url = '/ejemplo/API/Lote/eliminar'
             const body = new FormData();
             body.append('id', id);
             const headers = new Headers();
@@ -241,5 +185,12 @@ window.eliminarRegistro = (id) => {
     })
 }
 
-formProductos.addEventListener('submit', guardarProducto )
-btnModificar.addEventListener('click', modificarProducto);
+
+
+formLote.addEventListener('submit', guardarLote )
+
+
+
+
+
+

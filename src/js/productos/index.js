@@ -67,6 +67,7 @@ const guardarProducto = async (evento) => {
     }
 }
 
+
 const buscarProducto = async (evento) => {
     evento && evento.preventDefault();
 
