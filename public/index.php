@@ -16,19 +16,18 @@ $router->setBaseURL('/ejemplo');
 $router->get('/', [AppController::class, 'index']);
 
 $router->get('/productos', [ProductoController::class, 'index']);
-$router->post('/API/productos/guardar', [ProductoController::class, 'guardar']);
-$router->get('/API/productos/buscar', [ProductoController::class, 'buscar']);
-$router->post('/API/productos/modificar', [ProductoController::class, 'modificar']);
-$router->post('/API/productos/eliminar', [ProductoController::class, 'eliminar']);
+$router->post('/API/productos/guardar', [ProductoController::class, 'guardarAPI']);
+$router->get('/API/productos/buscar', [ProductoController::class, 'buscarAPI']);
+$router->post('/API/productos/modificar', [ProductoController::class, 'modificarAPI']);
+$router->post('/API/productos/eliminar', [ProductoController::class, 'eliminarAPI']);
 
 // lote
 
 $router->get('/Lote', [LoteController::class, 'index']);
-
 $router->post('/API/Lote/guardar', [LoteController::class, 'guardarAPI']);
-$router->get('/API/Lote/buscar', [LoteController::class, 'buscar']);
-$router->post('/API/Lote/modificar', [LoteController::class, 'modificar']);
-$router->post('/API/Lote/eliminar', [LoteController::class, 'eliminar']);
+$router->get('/API/Lote/buscar', [LoteController::class, 'buscarAPI']);
+$router->post('/API/Lote/modificar', [LoteController::class, 'modificarAPI']);
+$router->post('/API/Lote/eliminar', [LoteController::class, 'eliminarAPI']);
 
 
 

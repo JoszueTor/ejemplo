@@ -30,7 +30,7 @@ class ProductoController{
         }
     }
 
-    public function buscarApi(){
+    public function buscarAPI(){
         getHeadersApi();
         $productos = Producto::where('situacion', '1');
         echo json_encode($productos);

@@ -4,29 +4,28 @@ import Datatable from 'datatables.net-bs5';
 import { lenguaje } from "../lenguaje";
 import Swal from "sweetalert2";
 
-
-
+const formLote = document.getElementById('form');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const divTabla = document.getElementById('divTabla');
-let tablaLote = new Datatable('#tablalote');
+let tablaLote = new Datatable('#LoteTabla');
 
-const formLote = document.getElementById('formLote')
-
+btnModificar.parentElement.style.display = 'none';
+btnGuardar.disabled = false;
+btnModificar.disabled = true;
 
 const guardarLote = async (evento) => {
     evento.preventDefault();
-
+    
     let formularioValido = validarFormulario(formLote, ['id']);
-    if (!formularioValido) {
+
+    if(!formularioValido < 1 ){ 
         Toast.fire({
-            icon: 'warning',
-            title: 'Debe llenar todos los campos'
+            icon : 'warning',
+            title : 'Debe llenar todos los campos'
         })
         return;
     }
-
-
 
     try {
         //Crear el cuerpo de la consulta
@@ -34,21 +33,20 @@ const guardarLote = async (evento) => {
         const body = new FormData(formLote);
         body.delete('id');
         const headers = new Headers();
-        headers.append("X-Requested-With", "fetch");
+        headers.append("X-requested-With", "fetch");
 
         const config = {
-            method: 'POST',
+            method : 'POST',
             headers,
             body
         }
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        
-        const { resultado, mensaje } = data;
+
+        const {resultado} = data;
         // const resultado = data.resultado;
-        // console.log(data);
-        
+
         if(resultado == 1){
             Toast.fire({
                 icon : 'success',
@@ -64,12 +62,11 @@ const guardarLote = async (evento) => {
             })
         }
 
-
-
     } catch (error) {
         console.log(error);
     }
 }
+
 
 const buscarLote = async (evento) => {
     evento && evento.preventDefault();
@@ -86,33 +83,38 @@ const buscarLote = async (evento) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        console.log(data);
+        // console.log(data);
 
         
         tablaLote.destroy();
         let contador = 1;
-        tablaLote = new Datatable('#tablaLote', {
+        tablaLote = new Datatable('#LoteTabla', {
             language : lenguaje,
             data : data,
             columns : [
                 { 
-                    data : 'lote_id',
+                    data : 'id',
                     render : () => {      
                         return contador++;
                     }
                 },
-                { data : 'lote_id'},
-               
+                { data : 'nombre'},
                 { 
-                    data : 'lote_id',
-                    'render': (data, type, row, meta) => {
-                        return `<button class="btn btn-warning" onclick="asignarValores('${row.id}', '${row.desc}', '${row.dep}')">Modificar</button>`
+                    data : 'precio',
+                    render : (data, type, row, meta) => {
+                        return `Q. ${data}`
                     } 
                 },
                 { 
-                    data : 'lote_id',
+                    data : 'id',
                     'render': (data, type, row, meta) => {
-                        return `<button class="btn btn-danger" onclick="eliminarRegistro('${row.lote_id}')">Eliminar</button>`
+                        return `<button class="btn btn-warning" onclick="asignarValores('${row.id}', '${row.nombre}', '${row.precio}')">Modificar</button>`
+                    } 
+                },
+                { 
+                    data : 'id',
+                    'render': (data, type, row, meta) => {
+                        return `<button class="btn btn-danger" onclick="eliminarRegistro('${row.id}')">Eliminar</button>`
                     } 
                 },
             ]
@@ -123,12 +125,69 @@ const buscarLote = async (evento) => {
     }
 }
 
+const modificarLote = async (evento) => {
+    evento.preventDefault();
+    
+    let formularioValido = validarFormulario(formLote);
+
+    if(!formularioValido || formLote.precio.value < 1 ){ 
+        Toast.fire({
+            icon : 'warning',
+            title : 'Debe llenar todos los campos'
+        })
+        return;
+    }
+
+    try {
+        //Crear el cuerpo de la consulta
+        const url = '/ejemplo/API/Lote/modificar'
+        const body = new FormData(formLote);
+        const headers = new Headers();
+        headers.append("X-requested-With", "fetch");
+
+        const config = {
+            method : 'POST',
+            headers,
+            body
+        }
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+
+        const {resultado} = data;
+        // const resultado = data.resultado;
+
+        if(resultado == 1){
+            Toast.fire({
+                icon : 'success',
+                title : 'Registro modificado'
+            })
+            buscarLote();
+            formLote.reset();
+            btnModificar.parentElement.style.display = 'none';
+            btnGuardar.parentElement.style.display = '';
+            btnGuardar.disabled = false;
+            btnModificar.disabled = true;
+        
+            divTabla.style.display = ''
+        }else{
+            Toast.fire({
+                icon : 'error',
+                title : 'Ocurrió un error'
+            })
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 buscarLote();
 
 window.asignarValores = (id, nombre, precio) => {
-    formProductos.id.value = id;
-    formProductos.nombre.value = nombre;
-    formProductos.precio.value = precio;
+    formLote.id.value = id;
+    formLote.nombre.value = nombre;
+    formLote.precio.value = precio;
     btnModificar.parentElement.style.display = '';
     btnGuardar.parentElement.style.display = 'none';
     btnGuardar.disabled = true;
@@ -136,8 +195,6 @@ window.asignarValores = (id, nombre, precio) => {
 
     divTabla.style.display = 'none'
 }
-
-
 
 window.eliminarRegistro = (id) => {
     Swal.fire({
@@ -173,8 +230,8 @@ window.eliminarRegistro = (id) => {
                     title : 'Registro eliminado'
                 })
     
-                formProductos.reset();
-                buscarProducto();
+                formLote.reset();
+                buscarLote();
             }else{
                 Toast.fire({
                     icon : 'error',
@@ -185,12 +242,6 @@ window.eliminarRegistro = (id) => {
     })
 }
 
-
-
 formLote.addEventListener('submit', guardarLote )
-
-
-
-
-
+btnModificar.addEventListener('click', modificarLote);
 
