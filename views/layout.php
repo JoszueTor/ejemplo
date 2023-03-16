@@ -29,18 +29,67 @@
   
                     <div class="nav-item dropdown " >
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>Administracion
+                            <i class="bi bi-gear me-2"></i>Comandos
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/ejemplo/productos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Producto</a>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/productos"><i class="ms-lg-0 ms-2 bi bi-person-check me-2"></i>Almacen Comando</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi bi-card-heading me-2"></i>Ingreso de Asentamiento</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Calibre"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Unidades</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi bi-card-list me-2"></i>Reporte</a>
+                            </li>
+                        
+                    
+                        
+                        </ul>
+                    </div> 
+                    <div class="nav-item dropdown " >
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-box-arrow-down me-2"></i>Ingresos
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
+                        <h6 class="dropdown-header">Fabrica de Municiones</h6>
+                            <!-- <h6 class="dropdown-header">Información</h6> -->
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/productos"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Ingresos Fabrica Municion</a>
+                            </li>
+                            <h6 class="dropdown-header">Almacen General S.M.G.</h6>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Ingresos Almacen</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Calibre"><i class="ms-lg-0 ms-2 bi bi-arrow-left-right me-2"></i>Traslados de Fabrica</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi-arrow-left-right me-2"></i>Traslados de Comandos</a>
+                            </li>
+                        
+                    
+                        
+                        </ul>
+                    </div> 
+                    <div class="nav-item dropdown " >
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-gear me-2"></i>Administracion
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
+                            <!-- <h6 class="dropdown-header">Información</h6> -->
+                           
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Lote</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Calibre"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calibre</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Situaciones</a>
                             </li>
                         
                     

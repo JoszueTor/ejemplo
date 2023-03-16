@@ -1,14 +1,14 @@
 <div class="row text-center">
     <div class="col">
-        <h1>Calibre</h1>
+        <h1>Situaciones</h1>
     </div>
 </div>
 <div class="row justify-content-center">
-    <form id="formCalibre" class="col-lg-4 border rounded bg-light p-3">
+    <form id="formSituaciones" class="col-lg-4 border rounded bg-light p-3">
         <input type="hidden" name="id" id="id">
         <div class="row mb-3">
             <div class="col-lg-12">
-                <label for="descripcion">Descripcion del Calibre</label>
+                <label for="descripcion">Descripcion del Situaciones</label>
                 <input type="text" name="descripcion" id="descripcion" class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
             </div>
         </div>
@@ -25,7 +25,7 @@
 </div>
 <div class="row justify-content-center" id="divTabla">
     <div class="col-lg-10">
-        <table id="CalibreTabla" class="table table-bordered table-hover w-100">
+        <table id="SituacionesTabla" class="table table-bordered table-hover w-100">
             <thead>
                 <tr>
                     <th>NO.</th>
@@ -41,4 +41,4 @@
         </table>
     </div>
 </div>
-<script src="build/js/Calibre/index.js"></script>
+<script src="build/js/Situaciones/index.js"></script>

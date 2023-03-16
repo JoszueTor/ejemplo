@@ -7,6 +7,8 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\ProductoController;
 use Controllers\LoteController;
+use Controllers\CalibreController;
+use Controllers\SituacionesController;
 use MVC\Router;
 use Controllers\AppController;
 
@@ -36,6 +38,14 @@ $router->post('/API/Calibre/guardar', [CalibreController::class, 'guardarAPI']);
 $router->get('/API/Calibre/buscar', [CalibreController::class, 'buscarAPI']);
 $router->post('/API/Calibre/modificar', [CalibreController::class, 'modificarAPI']);
 $router->post('/API/Calibre/eliminar', [CalibreController::class, 'eliminarAPI']);
+
+
+//Situaciones
+$router->get('/Situaciones', [SituacionesController::class, 'index']);
+$router->post('/API/Situaciones/guardar', [SituacionesController::class, 'guardarAPI']);
+$router->get('/API/Situaciones/buscar', [SituacionesController::class, 'buscarAPI']);
+$router->post('/API/Situaciones/modificar', [SituacionesController::class, 'modificarAPI']);
+$router->post('/API/Situaciones/eliminar', [SituacionesController::class, 'eliminarAPI']);
 
 
 
