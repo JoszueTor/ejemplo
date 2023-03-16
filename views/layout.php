@@ -39,6 +39,9 @@
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Lote</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Calibre"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calibre</a>
+                            </li>
                         
                     
                         

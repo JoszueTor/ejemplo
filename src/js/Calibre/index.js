@@ -4,20 +4,20 @@ import Datatable from 'datatables.net-bs5';
 import { lenguaje } from "../lenguaje";
 import Swal from "sweetalert2";
 
-const formLote = document.getElementById('formLote');
+const formCalibre = document.getElementById('formCalibre');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const divTabla = document.getElementById('divTabla');
-let tablaLote = new Datatable('#LoteTabla');
+let tablaCalibre = new Datatable('#CalibreTabla');
 
 btnModificar.parentElement.style.display = 'none';
 btnGuardar.disabled = false;
 btnModificar.disabled = true;
 
-const guardarLote = async (evento) => {
+const guardarCalibre = async (evento) => {
     evento.preventDefault();
     
-    let formularioValido = validarFormulario(formLote, ['id']);
+    let formularioValido = validarFormulario(formCalibre, ['id']);
 
     if(!formularioValido ){ 
         Toast.fire({
@@ -29,8 +29,8 @@ const guardarLote = async (evento) => {
 
     try {
         //Crear el cuerpo de la consulta
-        const url = '/ejemplo/API/Lote/guardar'
-        const body = new FormData(formLote);
+        const url = '/ejemplo/API/Calibre/guardar'
+        const body = new FormData(formCalibre);
         body.delete('id');
         const headers = new Headers();
         headers.append("X-requested-With", "fetch");
@@ -53,8 +53,8 @@ const guardarLote = async (evento) => {
                 title : 'Registro guardado'
             })
 
-            formLote.reset();
-            buscarLote();
+            formCalibre.reset();
+            buscarCalibre();
         }else{
             Toast.fire({
                 icon : 'error',
@@ -68,11 +68,11 @@ const guardarLote = async (evento) => {
 }
 
 
-const buscarLote = async (evento) => {
+const buscarCalibre = async (evento) => {
     evento && evento.preventDefault();
 
     try {
-        const url = '/ejemplo/API/Lote/buscar'
+        const url = '/ejemplo/API/Calibre/buscar'
         const headers = new Headers();
         headers.append("X-requested-With", "fetch");
 
@@ -86,9 +86,9 @@ const buscarLote = async (evento) => {
         console.log(data);
 
         
-        tablaLote.destroy();
+        tablaCalibre.destroy();
         let contador = 1;
-        tablaLote = new Datatable('#LoteTabla', {
+        tablaCalibre = new Datatable('#CalibreTabla', {
             language : lenguaje,
             data : data,
             columns : [
@@ -120,10 +120,10 @@ const buscarLote = async (evento) => {
     }
 }
 
-const modificarLote = async (evento) => {
+const modificarCalibre = async (evento) => {
     evento.preventDefault();
     
-    let formularioValido = validarFormulario(formLote);
+    let formularioValido = validarFormulario(formCalibre);
 
     if(!formularioValido){ 
         Toast.fire({
@@ -135,8 +135,8 @@ const modificarLote = async (evento) => {
 
     try {
         //Crear el cuerpo de la consulta
-        const url = '/ejemplo/API/Lote/modificar'
-        const body = new FormData(formLote);
+        const url = '/ejemplo/API/Calibre/modificar'
+        const body = new FormData(formCalibre);
         const headers = new Headers();
         headers.append("X-requested-With", "fetch");
 
@@ -157,8 +157,8 @@ const modificarLote = async (evento) => {
                 icon : 'success',
                 title : 'Registro modificado'
             })
-            buscarLote();
-            formLote.reset();
+            buscarCalibre();
+            formCalibre.reset();
             btnModificar.parentElement.style.display = 'none';
             btnGuardar.parentElement.style.display = '';
             btnGuardar.disabled = false;
@@ -177,11 +177,11 @@ const modificarLote = async (evento) => {
     }
 }
 
-buscarLote();
+buscarCalibre();
 
 window.asignarValores = (id, descripcion) => {
-    formLote.id.value = id;
-    formLote.descripcion.value = descripcion;
+    formCalibre.id.value = id;
+    formCalibre.descripcion.value = descripcion;
  
     btnModificar.parentElement.style.display = '';
     btnGuardar.parentElement.style.display = 'none';
@@ -202,7 +202,7 @@ window.eliminarRegistro = (id) => {
         confirmButtonText: 'Si, eliminar'
     }).then( async (result) => {
         if(result.isConfirmed){
-            const url = '/ejemplo/API/Lote/eliminar'
+            const url = '/ejemplo/API/Calibre/eliminar'
             const body = new FormData();
             body.append('id', id);
             const headers = new Headers();
@@ -225,8 +225,8 @@ window.eliminarRegistro = (id) => {
                     title : 'Registro eliminado'
                 })
     
-                formLote.reset();
-                buscarLote();
+                formCalibre.reset();
+                buscarCalibre();
             }else{
                 Toast.fire({
                     icon : 'error',
@@ -237,6 +237,6 @@ window.eliminarRegistro = (id) => {
     })
 }
 
-formLote.addEventListener('submit', guardarLote )
-btnModificar.addEventListener('click', modificarLote);
+formCalibre.addEventListener('submit', guardarCalibre )
+btnModificar.addEventListener('click', modificarCalibre);
 

@@ -2,11 +2,11 @@
 
 namespace Model;
 
-class Lote extends ActiveRecord
+class Calibre extends ActiveRecord
 {
 
 
-    protected static $tabla = 'municion_lote'; //nombre de la tablaX
+    protected static $tabla = 'municion_calibre'; //nombre de la tablaX
     protected static $columnasDB = ['ID', 'DESCRIPCION', 'SITUACION'];
 
     public $id;

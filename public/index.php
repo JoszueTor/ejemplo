@@ -30,6 +30,14 @@ $router->post('/API/Lote/modificar', [LoteController::class, 'modificarAPI']);
 $router->post('/API/Lote/eliminar', [LoteController::class, 'eliminarAPI']);
 
 
+//calibre
+$router->get('/Calibre', [CalibreController::class, 'index']);
+$router->post('/API/Calibre/guardar', [CalibreController::class, 'guardarAPI']);
+$router->get('/API/Calibre/buscar', [CalibreController::class, 'buscarAPI']);
+$router->post('/API/Calibre/modificar', [CalibreController::class, 'modificarAPI']);
+$router->post('/API/Calibre/eliminar', [CalibreController::class, 'eliminarAPI']);
+
+
 
 
 

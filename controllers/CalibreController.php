@@ -2,16 +2,16 @@
 
 namespace Controllers;
 
-use Model\Lote;
+use Model\Calibre;
 use MVC\Router;
 use Exception;
 
-class LoteController
+class CalibreController
 {
 
     public function index(Router $router)
     {
-        $router->render('Lote/index');
+        $router->render('Calibre/index');
     }
 
     public function guardarAPI()
@@ -21,9 +21,9 @@ class LoteController
 
 
         try {
-            $Lote = new Lote($_POST);
+            $Calibre = new Calibre($_POST);
 
-            $resultado = $Lote->guardar();
+            $resultado = $Calibre->guardar();
 
 
             if ($resultado['resultado'] == 1) {
@@ -56,8 +56,8 @@ class LoteController
 
 
         try {
-            $Lotes = Lote::where('situacion', '1');
-            echo json_encode($Lotes);
+            $Calibres = Calibre::where('situacion', '1');
+            echo json_encode($Calibres);
         } catch (Exception $e) {
             echo json_encode([
                 "detalle" => $e->getMessage(),
@@ -74,9 +74,9 @@ class LoteController
     public function modificarAPI()
     {
         getHeadersApi();
-        $Lote = new Lote($_POST);
+        $Calibre = new Calibre($_POST);
 
-        $resultado = $Lote->guardar();
+        $resultado = $Calibre->guardar();
 
         if ($resultado['resultado'] == 1) {
             echo json_encode([
@@ -95,9 +95,9 @@ class LoteController
     {
         getHeadersApi();
         $_POST['situacion'] = 0;
-        $Lote = new Lote($_POST);
+        $Calibre = new Calibre($_POST);
 
-        $resultado = $Lote->guardar();
+        $resultado = $Calibre->guardar();
 
         if ($resultado['resultado'] == 1) {
             echo json_encode([
