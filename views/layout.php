@@ -34,7 +34,7 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/ejemplo/productos"><i class="ms-lg-0 ms-2 bi bi-person-check me-2"></i>Almacen Comando</a>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/almacenComando"><i class="ms-lg-0 ms-2 bi bi-person-check me-2"></i>Almacen Comando</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi bi-card-heading me-2"></i>Ingreso de Asentamiento</a>
@@ -58,18 +58,18 @@
                         <h6 class="dropdown-header">Fabrica de Municiones</h6>
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/ejemplo/productos"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Ingresos Fabrica Municion</a>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/IngresoFab"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Ingresos Fabrica Municion</a>
                             </li>
                             <h6 class="dropdown-header">Almacen General S.M.G.</h6>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Ingresos Almacen</a>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/IngresoAlmacen"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Ingresos Almacen</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Calibre"><i class="ms-lg-0 ms-2 bi bi-arrow-left-right me-2"></i>Traslados de Fabrica</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi-arrow-left-right me-2"></i>Traslados de Comandos</a>
-                            </li>
+                            </li> -->
                         
                     
                         
@@ -90,6 +90,10 @@
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Situaciones</a>
+                            </li>
+                        
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/helado"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>helado</a>
                             </li>
                         
                     

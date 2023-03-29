@@ -10,6 +10,10 @@ module.exports = {
     'js/Lote/index' : './src/js/Lote/index.js',
     'js/Calibre/index' : './src/js/Calibre/index.js',
     'js/Situaciones/index' : './src/js/Situaciones/index.js',
+    'js/IngresoFab/index' : './src/js/IngresoFab/index.js',
+    'js/helado/index' : './src/js/helado/index.js',
+    'js/IngresoAlmacen/index' : './src/js/IngresoAlmacen/index.js',
+    'js/almacenComando/index' : './src/js/almacenComando/index.js',
   },
   output: {
     filename: '[name].js',
