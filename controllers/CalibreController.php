@@ -91,6 +91,7 @@ class CalibreController
         }
     }
 
+    
     public function eliminarAPI()
     {
         getHeadersApi();

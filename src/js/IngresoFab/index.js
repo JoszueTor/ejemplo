@@ -5,7 +5,7 @@ import { lenguaje } from "../lenguaje";
 import Swal from "sweetalert2";
 // import { Modal } from "bootstrap";
 
-const formIngresoFab = document.getElementById("formIngresoFab");
+const formIngresoFab = document.querySelector("#formIngresoFab");
 const formIngresoFab1 = document.getElementById("formIngresoFab1");
 const formSalida1 = document.getElementById("formSalida1");
 const formHistorial = document.getElementById("formHistorial");
@@ -14,12 +14,16 @@ const btnGuardar = document.getElementById("btnGuardar");
 const BtnCerrar = document.getElementById("BtnCerrar");
 const btnTrasladar = document.getElementById("btnTrasladar");
 
+const spanText = document.querySelector("#textNombre");
+const InputCatalogo = document.getElementById("catalogo");
+
 const divTabla = document.getElementById("divTabla");
 const divTabla1 = document.getElementById("divTabla1");
 let tablaIngresoFab = new Datatable("#IngresoFabTabla");
 let tablaIngresoFab1 = new Datatable("#IngresoFabTabla1");
 let tablaSalidaFab1 = new Datatable("#SalidaFab1");
 let historialFab = new Datatable("#historialFab");
+let tablaRechazoAlmacen = new Datatable("#RechazoAlmacen");
 const modalEntradaMunicion = new Modal(document.getElementById("entradafab"));
 const GenerarSalida1 = new Modal(document.getElementById("GenerarSalida"));
 
@@ -53,7 +57,7 @@ const guardarIngresoFab = async (evento) => {
 
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
-    //console.log(data);
+    // console.log(data);
     const { resultado } = data;
 
     if (resultado == 1) {
@@ -114,19 +118,21 @@ const buscarIngresoFab = async (e) => {
         { data: "cantidad" },
         { data: "documento" },
         { data: "observaciones" },
+        // { data: "catalogo" },
 
         {
           data: "id",
           render: (data, type, row, meta) => {
-            return `<a type="button" class="btn btn-success" onclick="GenerarSalida('${row.id}')">Trasladar</a>`;
+            return `${row.grado} ${" "} ${row.catalogo} `;
           },
         },
-        {
-          data: "id",
-          render: (data, type, row, meta) => {
-            return `<a type="button" class="btn btn-danger" onclick="eliminarRegistro('${row.id}')">Eliminar</a>`;
-          },
-        },
+        // {
+        //   data: "id",
+        //   render: (data, type, row, meta) => {
+        //     return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+        //   },
+        // },
+        // { data: "catalogosalida" },
       ],
     });
   } catch (error) {
@@ -221,7 +227,20 @@ const buscarSalidaFab1 = async (evento) => {
         { data: "documento" },
         { data: "observaciones" },
         { data: "departamento" },
-   
+
+        // {
+        //   data: "id",
+        //   render: (data, type, row, meta) => {
+        //     return `${row.grado} ${" "} ${row.catalogo} `;
+        //   },
+        // },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+          },
+        },
+
         // {
         //   data: "id",
         //   render: (data, type, row, meta) => {
@@ -271,9 +290,68 @@ const HistorialFabrica = async (evento) => {
         { data: "documento" },
         { data: "observaciones" },
         { data: "movimiento" },
-       
+
         { data: "departamento" },
-        { data: "situacion" },
+
+        {
+            data: "id",
+            render: (data, type, row, meta) => {
+              return `${row.grado} ${" "} ${row.catalogo} `;
+            },
+          },
+          {
+            data: "id",
+            render: (data, type, row, meta) => {
+              return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+            },
+          },
+        
+      ],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const buscarRechazoAlmacen1 = async (evento) => {
+  evento && evento.preventDefault();
+
+  try {
+    const url = "/ejemplo/API/IngresoFab/buscarRechazo";
+    const headers = new Headers();
+    headers.append("X-requested-With", "fetch");
+
+    const config = {
+      method: "GET",
+    };
+
+    const respuesta = await fetch(url, config);
+    const data = await respuesta.json();
+
+    //console.log(data);
+
+    tablaRechazoAlmacen.destroy();
+    let contador = 1;
+    tablaRechazoAlmacen = new Datatable("#RechazoAlmacen", {
+      language: lenguaje,
+      data: data,
+      columns: [
+        {
+          data: "id",
+          render: () => {
+            return contador++;
+          },
+        },
+        { data: "lote" },
+        { data: "calibre" },
+        { data: "motivo" },
+        { data: "cantidad" },
+        { data: "fecha" },
+        { data: "documento" },
+        { data: "observaciones" },
+        { data: "departamento" },
+        // { data: "departamento" },
+        // { data: "fecha" },
         // {
         //   data: "id",
         //   render: (data, type, row, meta) => {
@@ -291,6 +369,7 @@ buscarIngresoFab();
 buscarIngresoFab1();
 buscarSalidaFab1();
 HistorialFabrica();
+buscarRechazoAlmacen1();
 
 window.eliminarRegistro = async (id) => {
   //alert(id);
@@ -381,7 +460,7 @@ window.validarRegistro = (id) => {
         buscarIngresoFab();
         buscarIngresoFab1();
         buscarSalidaFab1();
-HistorialFabrica();
+        HistorialFabrica();
       } else {
         Toast.fire({
           icon: "error",
@@ -450,7 +529,7 @@ const guardarTraslado = async (evento) => {
 
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
-    console.log(data);
+    // console.log(data);
     const { resultado } = data;
 
     if (resultado == 1) {
@@ -478,6 +557,70 @@ const guardarTraslado = async (evento) => {
   }
 };
 
+let catalogoValido = false;
+const buscarCatalogo = async () => {
+  // evento.preventDefault();
+
+  let catalogo = formIngresoFab.catalogo.value;
+
+  // btn_guardar.style.display= ''
+  //                 btn_modificar.disabled = true
+  //                 btn_guardar.disabled = false
+  //                 btn_modificar.style.display='none'
+
+  if (catalogo.length < 6) {
+    spanText.textContent = "CATÁLOGO MUY CORTO";
+    spanText.classList.add("text-danger");
+    spanText.classList.remove("text-success");
+    catalogoValido = false;
+    return;
+  }
+
+  try {
+    const url = `/ejemplo/API/IngresoFab/catalogo?catalogo=${catalogo}`;
+    const config = { method: "GET" };
+    const response = await fetch(url, config);
+
+    const info = await response.json();
+    // console.log(info);
+
+    info;
+
+    if (info != "") {
+      if (info[0]["ape_id"] != "") {
+        info.forEach((i) => {
+          spanText.textContent = i.grado + " " + i.nombre;
+          spanText.classList.remove("text-danger");
+          spanText.classList.add("text-success");
+          catalogoValido = true;
+          // btn_guardar.style.display= 'none'
+          // btn_guardar.disabled = true
+          // btn_modificar.disabled = false
+          // btn_modificar.style.display=''
+        });
+      } else {
+        info.forEach((i) => {
+          spanText.textContent = i.grado + " " + i.nombre;
+          spanText.classList.remove("text-danger");
+          spanText.classList.add("text-success");
+          catalogoValido = true;
+        });
+      }
+    } else {
+      spanText.textContent = "NO SE ENCONTRARON DATOS";
+      spanText.classList.add("text-danger");
+      spanText.classList.remove("text-success");
+      catalogoValido = false;
+    }
+  } catch (error) {
+    console.log(error);
+    spanText.classList.add("text-danger");
+    spanText.classList.remove("text-success");
+    catalogoValido = false;
+  }
+};
+
 formIngresoFab.addEventListener("submit", guardarIngresoFab);
 formDatosTablaFabrica.addEventListener("submit", guardarTraslado);
 formHistorial.addEventListener("submit", HistorialFabrica);
+InputCatalogo.addEventListener("change", buscarCatalogo);

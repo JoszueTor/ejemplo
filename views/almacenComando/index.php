@@ -1,9 +1,10 @@
 <div class="row text-center">
     <div class="col">
-        <h1>Almacen de Munición
+        <h3>ALMACEN DE MUNICIÓN
             <?= $dependencia ?>
-        </h1>
+        </h3>
     </div>
+    <input type="hidden" id="iddependencia" value="<?= $org_dep ?>">
 </div>
 
 
@@ -40,7 +41,7 @@
                                 </svg>
                             </a>
                             <a type=" button" class="btn btn-info m-1" data-bs-toggle="modal"
-                                data-bs-target="#HISTORIALmunicionfabrica">Registro
+                                data-bs-target="#HISTORIALmunicionfabrica">Historial
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-calendar4-week" viewBox="0 0 16 16">
                                     <path
@@ -49,7 +50,7 @@
                                         d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
                                 </svg>
                             </a>
-                            <a type=" button" class="btn btn-warning m-1" data-bs-toggle="modal"
+                            <!-- <a type=" button" class="btn btn-warning m-1" data-bs-toggle="modal"
                                 data-bs-target="#Rechazofab">Rechazo Municion
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-calendar4-week" viewBox="0 0 16 16">
@@ -59,9 +60,9 @@
                                         d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
                                 </svg>
 
-                            </a>
-                            <a type=" button" class="btn btn-warning m-1" data-bs-toggle="modal"
-                                data-bs-target="#asignadoAlmacen">Municion Asignada
+                            </a> -->
+                            <!-- <a type=" button" class="btn btn-secondary m-1" id="BtnAsignarmunicion"
+                                name="BtnAsignarmunicion">Vista de Municion
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-calendar4-week" viewBox="0 0 16 16">
                                     <path
@@ -70,14 +71,14 @@
                                         d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
                                 </svg>
 
-                            </a>
+                            </a> -->
 
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-end">
 
-                            <a class="btn btn-info m-1" data-bs-target='#reporteanterior' data-bs-toggle='modal'>
+                            <a class="btn btn-warning m-1" data-bs-target='#reporteanterior' data-bs-toggle='modal'>
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-stopwatch" viewBox="0 0 16 16">
@@ -96,7 +97,6 @@
                 </div>
             </div>
 
-            <H3 class="row justify-content-center">MUNICION RECIBIDA A BATALLON</H3>
             <div class="row justify-content-center p-2" id="divTabla">
 
                 <div class="col-lg-10 p-2">
@@ -104,7 +104,7 @@
                     <table id="almacenComandoTabla" class="table table-bordered  table-responsive table-hover">
 
                         <thead>
-                            <tr>
+                            <tr class="align-middle text-center">
                                 <th>NO.</th>
                                 <th>LOTE</th>
                                 <th>CALIBRE</th>
@@ -112,13 +112,14 @@
                                 <th>CANTIDAD</th>
                                 <th>DOCUMENTO</th>
                                 <th>OBSERVACIONES</th>
-                                <th>TRASLADAR</th>
-                                <th>REGRESAR</th>
+                                <th>RECIBIDO POR</th>
+                                <th>ASIGNADO A</th>
+                                <th>DESIGNAR</th>
 
-                                <th>ELIMINAR</th>
+                                <!-- <th>ELIMINAR</th> -->
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="align-middle text-center">
 
                         </tbody>
                     </table>
@@ -140,7 +141,7 @@
 
 <div class="modal fade" id="entradafab" name="modalPersonal" tabindex="-1" role="dialog"
     aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
 
         <form id="formalmacenComando1" class="col-12 border p-2 mt-2 bg-light" enctype="multipart/form-data">
 
@@ -153,7 +154,7 @@
                     <div class="table-responsive" id="divTabla1">
                         <table class="table table-hover table-condensed table-bordered w-100" id="almacenComandoTabla1">
                             <thead class="table-dark text-center">
-                                <tr>
+                                <tr class="align-middle text-center">
                                     <th>NO</th>
                                     <th>LOTE</th>
                                     <th>CALIBRE</th>
@@ -162,12 +163,13 @@
                                     <th>FECHA</th>
                                     <th>DOCUMENTO</th>
                                     <th>OBS</th>
-                                    <th>COMANDO</th>
+                                    <th>RECIBIDO POR</th>
+                                    <th>ASIGNADO A</th>
                                     <th>VALIDAR</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="align-middle text-center">
 
 
                             </tbody>
@@ -197,7 +199,7 @@
 
 <div class="modal fade" id="salidafab" name="modalPersonal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <form id="formSalida1" class="col-12 border p-2 mt-2 bg-light">
             <div class="modal-content">
                 <div class="modal-header">
@@ -206,10 +208,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive" id="divTabla1">
-                        <table class="table table-hover table-condensed table-bordered w-100 text-center"
+                        <table class="table table-hover table-condensed table-bordered w-100 text-center small"
                             id="SalidaFab1">
                             <thead class="table-dark text-center">
-                                <tr>
+                                <tr class="align-middle text-center">
                                     <th>NO</th>
                                     <th>LOTE</th>
                                     <th>CALIBRE</th>
@@ -219,19 +221,19 @@
                                     <th>DOCUMENTO</th>
                                     <th>OBS</th>
                                     <th>COMANDO</th>
-                                    <!-- <th>FECHA</th> -->
+                                    <th>RECIBIDO POR</th>
+                                    <th>ASIGNADO A</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="align-middle text-center">
 
 
                             </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnCerrar"
-                            data-bs-dismiss="modal">Close</button>
+
 
                     </div>
 
@@ -245,10 +247,9 @@
 
 <!-- Modal HISTORIAL municion-->
 
-
 <div class="modal fade" id="HISTORIALmunicionfabrica" name="modalPersonal" tabindex="-1" role="dialog"
     aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <form id="formHistorial" class="col-12 border p-2 mt-2 bg-light">
             <div class="modal-content">
                 <div class="modal-header">
@@ -257,34 +258,33 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive" id="divTabla1">
-                        <table class="table table-hover table-condensed table-bordered w-100" id="historialFab">
+                        <table class="table table-hover table-condensed table-bordered w-100 small" id="historialFab">
                             <thead class="table-dark text-center">
-                                <tr>
+                                <tr class="align-middle text-center">
                                     <th>NO</th>
                                     <th>LOTE</th>
                                     <th>CALIBRE</th>
                                     <th>DESTINO</th>
                                     <th>CANT</th>
-                                    <!-- <th>FECHA Y HORA</th> -->
                                     <th>DOCUMENTO</th>
                                     <th>OBS</th>
                                     <th>MOVIMIENTO</th>
                                     <th>FECHA</th>
-                                    <th>COMANDO</th>
-                                    <th>SITUACION</th>
+                                    <th>RECIBIDO POR</th>
+                                    <th>ASIGNADO POR</th>
+                                    <!-- <th>COMANDO</th> -->
+                                    <!-- <th>SITUACION</th> -->
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="align-middle text-center">
 
 
                             </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnCerrar"
-                            data-bs-dismiss="modal">Close</button>
-
+                        <!--  -->
                     </div>
 
                 </div>
@@ -296,14 +296,13 @@
 
 
 
-
 <!-- Modal Modal GENERAR Salida municion-->
 <div class="modal fade" id="GenerarSalida" name="GenerarSalida" tabindex="-1" role="dialog"
     aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-        <div class="modal-content">
+        <div class="modal-content small">
             <div class="modal-header ">
-                <h5 class="modal-title " id="infoModalLabel">Traslado de Municion a Comando</h5>
+                <h5 class="modal-title " id="infoModalLabel">Traslado de Municion a Batallon</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container">
@@ -311,9 +310,10 @@
 
                 <form class="badge-light p-1 was-validated" id="formDatosTablaFabrica">
                     <input type="hidden" name="id1" id="id1">
-
+                    <input type="hidden" name="catalogo1" id="catalogo1">
+                    <input type="hidden" name="idcomando" id="idcomando" value="<?= $org_dep ?>">
                     <div class="row mb-3">
-                        <div class='col-lg-6'>
+                        <div class='col-lg-4'>
                             <label for="lote">
                                 LOTE
                             </label>
@@ -321,19 +321,24 @@
                             <input type="text" id="lote1" name="lote1" class="form-control" required readonly>
 
                         </div>
-                        <div class='col-lg-6'>
+                        <div class='col-lg-4'>
                             <label for="calibre">
                                 CALIBRE
                             </label>
                             <input type="hidden" id="idcalibre1" name="idcalibre1" class="form-control" required
                                 readonly>
                             <input type="text" id="calibre1" name="calibre1" class="form-control" required readonly>
-
+                        </div>
+                        <div class='col-lg-4'>
+                            <label for="cantidad">
+                                CANTIDAD ACTUAL
+                            </label>
+                            <input type="text" id="cantidad1" name="cantidad1" class="form-control" required readonly>
 
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class='col-lg-6'>
+                        <div class='col-lg-4'>
                             <label for="motivo">
                                 MOTIVO
                             </label>
@@ -341,60 +346,47 @@
                             <input type="text" id="motivo1" name="motivo1" class="form-control" required readonly>
 
                         </div>
-                        <div class='col-lg-6'>
-                            <label for="cantidad">
-                                CANTIDAD ACTUAL
-                            </label>
-                            <input type="text" id="cantidad1" name="cantidad1" class="form-control" required readonly>
-
-
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <label for="select_movimiento">BATALLON</label>
-                            <select class="form-control" name="Deptop" id="Deptop">
-                                <option value="">Seleccione ...</option>
-                                <?php foreach ($deptop as $deptop):
-
-                                    $id = $deptop['org_plaza'];
-                                    $desc = utf8_encode($deptop['org_plaza_desc']);
-                                    ?>
-
-                                    <option value="<?= $id ?>"><?= $desc ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <label for="select_movimiento">CUATRIMESTRE</label>
-                            <select class="form-control" name="cuatrimestre" id="cuatrimestre">
-                                <option value="">Seleccione ...</option>
-                                <option value="1">PRIMER CUATRIMESTRE </option>
-                                <option value="2">SEGUNDO CUATRIMESTRE </option>
-                                <option value="3">TERCER CUATRIMESTRE </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class='col-lg-6'>
-                            <label> CANTIDAD A ENVIAR </label>
-                            <input type="number" id="cantidadnew1" name="cantidadnew1" class="form-control" required>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <label for="documento1">DOCUMENTO DE REFERENCIA</label>
                             <input type="text" name="documento1" id="documento1" class="form-control"
-                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                readonly>
                         </div>
-
-
                     </div>
                     <div class="row mb-3">
                         <div class="col-lg-12">
                             <label for="observaciones1">OBSERVACIONES DE MUNICION</label>
                             <textarea type="tex" name="observaciones1" id="observaciones1" class="form-control" rows="3"
-                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></textarea>
+                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                readonly></textarea>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="select_movimiento">BATALLON</label>
+                            <select class="form-control" name="batallon" id="batallon" required>
+                                <option value="">Seleccione ...</option>
+                                <?php foreach ($batallon as $batallon):
+                                    $id = $batallon['id_dependencia'];
+                                    $jerarquia = $batallon['jerarquia'];
+                                    $nombre = $batallon['nombre'];
+                                    ?>
+                                    <option value="<?= $jerarquia ?>"><?= $nombre ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class='col-lg-4'>
+                            <label> CANTIDAD A ENVIAR </label>
+                            <input type="number" id="cantidadnew1" name="cantidadnew1" class="form-control" required>
+                        </div>
+                        <div class="col-lg-4">
+                            <label for="catalogo">CATALOGO</label>
+                            <input type="text" class="form-control text-center" id="catalogoTraslado"
+                                name="catalogoTraslado" maxlength="8" value="" required>
+                            <span class="form-text text-center" id="textNombreTraslado"></span>
+                        </div>
+                    </div>
+
                     <div class="row mb-3">
                         <div class="col">
                             <button id="btnTrasladar" type="submit" class="btn btn-success w-100">Trasladar</button>
@@ -419,7 +411,7 @@
 <div class="modal fade" id="GenerarRegreso" name="GenerarRegreso" tabindex="-1" role="dialog"
     aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-        <div class="modal-content">
+        <div class="modal-content small">
             <div class="modal-header ">
                 <h5 class="modal-title " id="infoModalLabel">Regreso de Municion a Comando</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -518,7 +510,7 @@
     aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <form id="formRechazo1" class="col-12 border p-2 mt-2 bg-light">
-            <div class="modal-content">
+            <div class="modal-content small">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Rechazo de Municion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -528,7 +520,7 @@
                         <table class="table table-hover table-condensed table-bordered w-100 text-center"
                             id="RechazoAlmacen">
                             <thead class="table-dark text-center">
-                                <tr>
+                                <tr class="align-middle text-center">
                                     <th>NO</th>
                                     <th>LOTE</th>
                                     <th>CALIBRE</th>
@@ -542,7 +534,7 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="align-middle text-center">
 
 
                             </tbody>
@@ -565,19 +557,20 @@
 
 <div class="modal fade" id="asignadoAlmacen" name="asignadoAlmacen" tabindex="-1" role="dialog"
     aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <form id="formalmacenComandoAsignado" class="col-12 border p-2 mt-2 bg-light" enctype="multipart/form-data">
 
-            <div class="modal-content">
+            <div class="modal-content small">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Municion Asignada</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive" id="divTablaASIG">
-                        <table class="table table-hover table-condensed table-bordered w-100 text-center" id="almacenComandoAsignado">
+                        <table class="table table-hover table-condensed table-bordered w-100 text-center"
+                            id="almacenComandoAsignado">
                             <thead class="table-dark text-center">
-                                <tr>
+                                <tr class="align-middle text-center">
                                     <th>NO</th>
                                     <th>LOTE</th>
                                     <th>CALIBRE</th>
@@ -585,29 +578,26 @@
                                     <th>MOTIVO</th>
                                     <th>DOCUMENTO</th>
                                     <th>OBS</th>
-                                    <th>MOVIMIENTO</th>
                                     <th>FECHA</th>
-                                    <th>DEPARTAMENTO</th>
+                                    <th>COMANDO</th>
                                     <th>BATALLON</th>
+
                                     <th>CUATRIMESTRE</th>
-                                    <th>SITUACION</th>
+
+                                    <!-- <th>FECHA</th>
                                     <th>FECHA</th>
-                                    <th>FECHA</th>
-                                    <th>FECHA</th>
+                                    <th>FECHA</th> -->
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="align-middle text-center">
 
 
                             </tbody>
                         </table>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnCerrar"
-                            data-bs-dismiss="modal">Close</button>
 
-                    </div>
+
 
                 </div>
             </div>

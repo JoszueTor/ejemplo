@@ -2,9 +2,9 @@
 
 namespace Model;
 
-class almacenComando extends ActiveRecord
+class inspectoriaG extends ActiveRecord
 {
-    protected static $tabla = 'municion_almacencomando'; //nombre de la tablaX
+    protected static $tabla = 'municion_ingresoalmacen'; //nombre de la tablaX
     protected static $columnasDB = [
         'ID',
         'LOTE',
@@ -31,7 +31,6 @@ class almacenComando extends ActiveRecord
     public $movimiento;
     public $fecha;
     public $departamento;
-    public $batallon;
     public $catalogo;
     public $catalogosalida;
     public $situacion;
@@ -50,7 +49,6 @@ class almacenComando extends ActiveRecord
         $this->movimiento = $args['movimiento'] ?? '';
         $this->fecha = $args['fecha'] ?? '';
         $this->departamento = $args['departamento'] ?? '';
-        $this->batallon = $args['batallon'] ?? '';
         $this->catalogo = $args['catalogo'] ?? '';
         $this->catalogosalida = $args['catalogosalida'] ?? '0';
         $this->situacion = $args['situacion'] ?? '1';

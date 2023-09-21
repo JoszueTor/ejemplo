@@ -2,9 +2,9 @@
 
 namespace Model;
 
-class almacenComando extends ActiveRecord
+class batallon extends ActiveRecord
 {
-    protected static $tabla = 'municion_almacencomando'; //nombre de la tablaX
+    protected static $tabla = 'municion_batallon'; //nombre de la tablaX
     protected static $columnasDB = [
         'ID',
         'LOTE',
@@ -16,6 +16,7 @@ class almacenComando extends ActiveRecord
         'MOVIMIENTO',
         'FECHA',
         'DEPARTAMENTO',
+        'BATALLON',
         'CATALOGO',
         'CATALOGOSALIDA',
         'SITUACION'
@@ -35,7 +36,6 @@ class almacenComando extends ActiveRecord
     public $catalogo;
     public $catalogosalida;
     public $situacion;
-
 
 
     public function __construct($args = [])

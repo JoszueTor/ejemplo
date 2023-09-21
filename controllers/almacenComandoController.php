@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace Controllers;
 
 use Model\almacenComando;
@@ -11,24 +8,26 @@ use Exception;
 class almacenComandoController
 {
 
-
-
-    public function index(Router $router)
+    public static function index(Router $router)
     {
-        $usuario = 644112;
+        // $usuario = 606871;
         $lote = almacenComando::fetchArray("SELECT * FROM municion_lote WHERE situacion = 1");
         $calibre = almacenComando::fetchArray("SELECT * FROM municion_calibre WHERE situacion = 1");
         $movimiento = almacenComando::fetchArray("SELECT * FROM municion_situacion WHERE situacion = 1");
 
-        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = $usuario");
+
+        // $usuario = 606871;
+        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER");
         foreach ($dependencias as $key => $value) {
 
-            $dependencia = $value['dep_desc_ct'];
+            $dependencia = $value['dep_desc_lg'];
             $org_dep = $value['org_dependencia'];
+            // var_dump($org_dep);
         }
 
-        $deptop = almacenComando::fetchArray("SELECT org_plaza, org_jerarquia[1], org_plaza_desc, org_dependencia  FROM morg  WHERE org_dependencia = $org_dep and org_ceom = 'TITULO' AND org_jerarquia[2,10]= '000000000' AND org_situacion = 'A'");
+        $deptop = almacenComando::fetchArray("SELECT org_plaza, org_jerarquia[1], org_plaza_desc, org_dependencia  FROM morg  WHERE org_dependencia = $org_dep and org_ceom = 'TITULO' AND org_jerarquia[2,10]= '000000000' AND org_situacion = 'A' and org_jerarquia[1] not in (0)");
 
+        $batallon = almacenComando::fetchArray("SELECT * FROM municion_organizacion WHERE id_dependencia = $org_dep and jerarquia between 10 and 15 and situacion = 1");
 
         $router->render('almacenComando/index', [
 
@@ -38,18 +37,15 @@ class almacenComandoController
             'deptop' => $deptop,
             'dependencia' => $dependencia,
             'org_dep' => $org_dep,
+            'batallon' => $batallon,
         ]);
 
 
     }
 
-    public function guardarAPI()
+    public static function guardarAPI()
     {
         getHeadersApi();
-
-
-
-
 
         try {
             date_default_timezone_set('America/Guatemala');
@@ -113,61 +109,54 @@ class almacenComandoController
                 "codigo" => 4,
             ]);
         }
-
-
-
     }
-    public function guardarAPITraslado()
+    public static function guardarAPITraslado()
     {
         getHeadersApi();
 
-
         date_default_timezone_set('America/Guatemala');
-
         $fechaActual = date('Y-m-d h:m');
 
-
         $id = $_POST['id1'];
-        $cantidad1 = $_POST['cantidad1'];
+        $lote = $_POST['idlote1'];
+        $calibre = $_POST['idcalibre1'];
+        $cantidad = $_POST['cantidad1'];
         $cantidad2 = $_POST['cantidadnew1'];
-        $deptonew = $_POST['Deptop'];
-        $total = $cantidad1 - $cantidad2;
+        $total = $cantidad - $cantidad2;
+        $motivo = $_POST['idmotivo1'];
+        $documento = $_POST['documento1'];
+        $observaciones = $_POST['observaciones1'];
+        $batallon = $_POST['batallon'];
+        $fecha = $fechaActual;
+        $idcomando = $_POST['idcomando'];
+        $catalogo = $_POST['catalogo1'];
+        $catalogotraslado = $_POST['catalogoTraslado'];
 
-
-        //  echo json_encode($_POST);
-        //             exit;
+        // echo json_encode($catalogotraslado);
+        //     exit;
 
         if ($total > 0) {
 
             try {
 
+                $insertHistorial = almacenComando::sql("INSERT INTO municion_batallon VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento', '$observaciones', 1, '$fecha', $idcomando, $batallon, $catalogo, $catalogotraslado, 5)");
 
-                $resultado = almacenComando::sql("UPDATE municion_ingresoalmacen set cantidad = $total where id = $id");
+                $seasignoHistorial = almacenComando::sql("INSERT INTO municion_batallon VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento', '$observaciones', 4, '$fecha', $idcomando, $batallon, $catalogo, $catalogotraslado, 1)");
 
-                $salida = new almacenComando([
-                    'id' => null,
-                    'lote' => $_POST['idlote1'],
-                    'calibre' => $_POST['idcalibre1'],
-                    'cantidad' => $cantidad2,
-                    'motivo' => $_POST['idmotivo1'],
-                    'documento' => $_POST['documento1'],
-                    'observaciones' => $_POST['observaciones1'],
-                    'movimiento' => '4',
-                    'fecha' => $fechaActual,
-                    'departamento' => '2940',
-                    'batallon' => $_POST['Deptop'],
-                    'cuatrimestre' => $_POST['cuatrimestre'],
-                    'situacion' => '2'
+                $insertMovimiento = almacenComando::sql("INSERT INTO municion_batallon VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento',' $observaciones', 1, '$fecha', $idcomando, $batallon, $catalogo, $catalogotraslado, 1)");
 
-                ]);
-                //     echo json_encode($ingreso);
+                $resultadoAlmacen = almacenComando::sql("UPDATE municion_almacencomando set cantidad = $total where id = $id");
+
+                $asignadoBatallon = almacenComando::sql("INSERT INTO municion_almacencomando VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento',' $observaciones', 4, '$fecha', $idcomando, $catalogo, $catalogotraslado, 1)");
+
+                $asignadoHistorial = "INSERT INTO municion_almacencomando VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento',' $observaciones', 4, '$fecha', $idcomando, $catalogo, $catalogotraslado, 5)";
+
+                // echo json_encode($asignadoBatallon);
                 // exit;
 
-                $resultado = $salida->guardar();
+                $resultado = almacenComando::sql($asignadoHistorial);
 
-
-
-                if ($resultado['resultado'] == 1) {
+                if ($asignadoBatallon == 1) {
                     echo json_encode([
                         "resultado" => 1
                     ]);
@@ -177,6 +166,7 @@ class almacenComandoController
                         "resultado" => 0
                     ]);
                 }
+
             } catch (Exception $e) {
                 echo json_encode([
                     "detalle" => $e->getMessage(),
@@ -185,43 +175,29 @@ class almacenComandoController
                     "codigo" => 4,
                 ]);
             }
-
-
-
-
         }
 
         if ($total == 0) {
 
-            $resultado = almacenComando::sql("UPDATE municion_almacenComando set cantidad = $total, situacion = 1 where id = $id");
-
             try {
 
-                $actualiza = new almacenComando([
-                    'id' => null,
-                    'lote' => $_POST['idlote1'],
-                    'calibre' => $_POST['idcalibre1'],
-                    'cantidad' => $cantidad2,
-                    'motivo' => $_POST['idmotivo1'],
-                    'documento' => $_POST['documento1'],
-                    'observaciones' => $_POST['observaciones1'],
-                    'movimiento' => '4',
-                    'fecha' => $fechaActual,
-                    'departamento' => '2940',
-                    'batallon' => $_POST['Deptop'],
-                    'cuatrimestre' => $_POST['cuatrimestre'],
-                    'situacion' => '2'
+                $insertHistorial = almacenComando::sql("INSERT INTO municion_batallon VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento', '$observaciones', 1, '$fecha', $idcomando, $batallon, $catalogo, $catalogotraslado, 5)");
+
+                $insertMovimiento = almacenComando::sql("INSERT INTO municion_batallon VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento',' $observaciones', 1, '$fecha', $idcomando, $batallon, $catalogo, $catalogotraslado, 1)");
+
+                $insertMovimiento = almacenComando::sql("INSERT INTO municion_batallon VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento',' $observaciones', 4, '$fecha', $idcomando, $batallon, $catalogo, $catalogotraslado, 1)");
+
+                $resultadoAlmacen = almacenComando::sql("UPDATE municion_almacencomando set cantidad = $cantidad2, movimiento = 3, situacion = 5 where id = $id");
+
+                $sql = "INSERT INTO municion_almacencomando VALUES (0, $lote, $calibre, $cantidad2, $motivo, '$documento',' $observaciones', 4, '$fecha', $idcomando, $catalogo, $catalogotraslado, 1)";
 
 
-                ]);
-                //     echo json_encode($ingreso);
+                $resultado = almacenComando::sql($sql);
+                // echo json_encode($resultado);
                 // exit;
 
-                $resultado = $actualiza->guardar();
 
-
-
-                if ($resultado['resultado'] == 1) {
+                if ($resultado == 1) {
                     echo json_encode([
                         "resultado" => 1
                     ]);
@@ -235,23 +211,13 @@ class almacenComandoController
                 echo json_encode([
                     "detalle" => $e->getMessage(),
                     "mensaje" => "Ocurrió  un error en base de datos.",
-
                     "codigo" => 4,
                 ]);
             }
-
-
-
-
         }
-
-
-
-
-
-
     }
-    public function guardarAPIregreso()
+
+    public static function guardarAPIregreso()
     {
         getHeadersApi();
 
@@ -266,6 +232,14 @@ class almacenComandoController
         $deptonew = $_POST['Deptop'];
         $total = $cantidad1 - $cantidad2;
 
+
+        // $usuario = 606871;
+        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER");
+        foreach ($dependencias as $key => $value) {
+
+            $dependencia = $value['dep_desc_ct'];
+            $org_dep = $value['org_dependencia'];
+        }
 
         //   echo json_encode($_POST);
         // exit;
@@ -288,7 +262,7 @@ class almacenComandoController
                     'observaciones' => $_POST['observaciones1'],
                     'movimiento' => '4',
                     'fecha' => $fechaActual,
-                    'departamento' => '250'
+                    'departamento' => $org_dep
 
                 ]);
                 //     echo json_encode($ingreso);
@@ -415,7 +389,7 @@ class almacenComandoController
 
     }
 
-    public function buscarAPI()
+    public static function buscarAPI()
     {
         getHeadersApi();
 
@@ -423,9 +397,9 @@ class almacenComandoController
 
         try {
 
-            $usuario = 644112;
+            $usuario = "SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER";
 
-            $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = $usuario");
+            $dependencias = almacenComando::fetchArray($usuario);
             foreach ($dependencias as $key => $value) {
 
                 $dependencia = $value['dep_desc_ct'];
@@ -433,18 +407,32 @@ class almacenComandoController
             }
 
             $almacenComandos = almacenComando::fetchArray(
-                "SELECT municion_ingresoalmacen.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, municion_situacion.descripcion as motivo,
-                documento, observaciones, movimiento, fecha, mdep.dep_desc_md as departamento   
-                from municion_ingresoalmacen, municion_lote, municion_calibre, municion_situacion, mdep 
-                where municion_ingresoalmacen.lote=municion_lote.id
-                and municion_ingresoalmacen.calibre=municion_calibre.id
-                and municion_ingresoalmacen.motivo=municion_situacion.id
-                and municion_ingresoalmacen.departamento=mdep.dep_llave
-                and municion_ingresoalmacen.departamento=$org_dep
-                and municion_ingresoalmacen.movimiento=2
-                and municion_ingresoalmacen.situacion=2"
+                "SELECT municion_almacencomando.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, municion_situacion.descripcion as motivo,
+                documento, observaciones, (CASE municion_almacencomando.movimiento
+                        WHEN 1 THEN 'ENTRADA A ALMACEN'
+                        WHEN 2 THEN 'INGRESO FABRICA'
+                        WHEN 3 THEN 'SALIDA FABRICA'
+                        WHEN 4 THEN 'ASIGNADO A BATALLON'
+                        END
+                    ) as movimiento, fecha, mdep.dep_desc_md as departamento, trim(grados1.gra_desc_ct) as grado, 
+                trim(mper1.per_nom1) || ' ' || trim(mper1.per_nom2) || ' ' || trim(mper1.per_ape1) || ' ' || trim(mper1.per_ape2) as catalogo, 
+                nvl(trim(grados2.gra_desc_ct), '') as gradosalida, 
+                nvl(trim(mper2.per_nom1) || ' ' || trim(mper2.per_nom2) || ' ' || trim(mper2.per_ape1) || ' ' || trim(mper2.per_ape2), 'FABRICA' )as catalogosalida
+            
 
+                from municion_almacencomando left join mper mper2 on catalogosalida = mper2.per_catalogo left join grados grados2 on mper2.per_grado = grados2.gra_codigo, municion_lote, municion_calibre, municion_situacion, mdep, mper mper1, grados grados1
+                where municion_almacencomando.lote=municion_lote.id
+                and municion_almacencomando.calibre=municion_calibre.id
+                and municion_almacencomando.motivo=municion_situacion.id
+                and municion_almacencomando.departamento=mdep.dep_llave
+                and municion_almacencomando.catalogo=mper1.per_catalogo
+                and mper1.per_grado = grados1.gra_codigo
+                and municion_almacencomando.departamento=$org_dep
+                and municion_almacencomando.movimiento=2
+                and municion_almacencomando.situacion=1
+                order by municion_almacencomando.fecha desc"
             );
+
             echo json_encode($almacenComandos);
 
         } catch (Exception $e) {
@@ -460,13 +448,13 @@ class almacenComandoController
     }
 
 
-    public function buscaringreso()
+    public static function buscaringreso()
     {
         getHeadersApi();
 
-        $usuario = 644112;
+        // $usuario = 606871;
 
-        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = $usuario");
+        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo =USER");
         foreach ($dependencias as $key => $value) {
 
             $dependencia = $value['dep_desc_ct'];
@@ -477,18 +465,34 @@ class almacenComandoController
 
 
             $almacenComandos = almacenComando::fetchArray(
-                "SELECT municion_ingresoalmacen.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, 
-                municion_situacion.descripcion as motivo, documento, observaciones, movimiento, fecha, mdep.dep_desc_md as departamento   
-                from municion_ingresoalmacen, municion_lote, municion_calibre, municion_situacion, mdep 
-                where municion_ingresoalmacen.lote=municion_lote.id
-                and municion_ingresoalmacen.calibre=municion_calibre.id
-                and municion_ingresoalmacen.motivo=municion_situacion.id
-                and municion_ingresoalmacen.departamento=mdep.dep_llave
-                and municion_ingresoalmacen.departamento=$org_dep
-                and municion_ingresoalmacen.movimiento=1
-                and municion_ingresoalmacen.situacion=2"
+                "SELECT municion_almacencomando.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, 
+                municion_situacion.descripcion as motivo, documento, observaciones,
+                (CASE municion_almacencomando.movimiento
+                        WHEN 1 THEN 'ENTRADA A ALMACEN'
+                        WHEN 2 THEN 'INGRESO FABRICA'
+                        WHEN 3 THEN 'SALIDA FABRICA'
+                        WHEN 4 THEN 'ASGINADO A BATALLON'
+                        END
+                    ) as movimiento, fecha, mdep.dep_desc_md as departamento, trim(grados1.gra_desc_ct) as grado, 
+                trim(mper1.per_nom1) || ' ' || trim(mper1.per_nom2) || ' ' || trim(mper1.per_ape1) || ' ' || trim(mper1.per_ape2) as catalogo, 
+                nvl(trim(grados2.gra_desc_ct), '') as gradosalida, 
+                nvl(trim(mper2.per_nom1) || ' ' || trim(mper2.per_nom2) || ' ' || trim(mper2.per_ape1) || ' ' || trim(mper2.per_ape2), 'FABRICA' )as catalogosalida
+            
+                from municion_almacencomando left join mper mper2 on catalogosalida = mper2.per_catalogo left join grados grados2 on mper2.per_grado = grados2.gra_codigo, municion_lote, municion_calibre, municion_situacion, mdep, mper mper1, grados grados1
+                where municion_almacencomando.lote=municion_lote.id
+                and municion_almacencomando.calibre=municion_calibre.id
+                and municion_almacencomando.motivo=municion_situacion.id
+                and municion_almacencomando.departamento=mdep.dep_llave
+                and municion_almacencomando.catalogo=mper1.per_catalogo
+                and mper1.per_grado = grados1.gra_codigo
+                and municion_almacencomando.departamento=$org_dep
+                and municion_almacencomando.movimiento=1
+                and municion_almacencomando.situacion=1
+                order by municion_almacencomando.fecha desc"
             );
+
             echo json_encode($almacenComandos);
+
         } catch (Exception $e) {
             echo json_encode([
                 "detalle" => $e->getMessage(),
@@ -504,9 +508,9 @@ class almacenComandoController
     {
         getHeadersApi();
 
-        $usuario = 644112;
+        // $usuario = 606871;
 
-        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = $usuario");
+        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER");
 
         foreach ($dependencias as $key => $value) {
 
@@ -528,7 +532,12 @@ class almacenComandoController
               fecha, 
               mdep.dep_desc_md as departamento,
               morg.org_plaza_desc as batallon,
-              cuatrimestre   
+              (CASE municion_asentamientobat.cuatrimestre
+                        WHEN 1 THEN 'PRIMER CUATRIMESTRE'
+                        WHEN 2 THEN 'SEGUNDO CUATRIMESTRE'
+                        WHEN 3 THEN 'TERCER CUATRIMESTRE'
+                        END
+                    ) as cuatrimestre 
            from municion_asentamientobat, municion_lote, municion_calibre, municion_situacion, mdep, morg 
            where municion_asentamientobat.lote=municion_lote.id
            and municion_asentamientobat.calibre=municion_calibre.id
@@ -537,14 +546,15 @@ class almacenComandoController
            and municion_asentamientobat.batallon=morg.org_plaza
            and municion_asentamientobat.departamento=$org_dep
            and municion_asentamientobat.movimiento=4
-           and municion_asentamientobat.situacion=2";
+           and municion_asentamientobat.situacion=7
+           order by municion_asentamientobat.fecha desc";
             $almacenComandos = almacenComando::fetchArray($query);
-         
 
-  
+
+
 
             echo json_encode($almacenComandos);
-        
+
 
         } catch (Exception $e) {
             echo json_encode([
@@ -558,23 +568,45 @@ class almacenComandoController
 
 
     }
-    public function buscarSalida()
+    public static function buscarSalida()
     {
         getHeadersApi();
 
+        // $usuario = 606871;
 
+        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER");
+        foreach ($dependencias as $key => $value) {
+
+            $dependencia = $value['dep_desc_ct'];
+            $org_dep = $value['org_dependencia'];
+        }
 
         try {
             $almacenComandos = almacenComando::fetchArray(
-                "SELECT municion_almacenComando.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, 
-                municion_situacion.descripcion as motivo, documento, observaciones, movimiento, fecha, mdep.dep_desc_md as departamento   
-                from municion_almacenComando, municion_lote, municion_calibre, municion_situacion, mdep 
-                where municion_almacenComando.lote=municion_lote.id
-                and municion_almacenComando.calibre=municion_calibre.id
-                and municion_almacenComando.motivo=municion_situacion.id
-                and municion_almacenComando.departamento=mdep.dep_llave
-                and municion_almacenComando.movimiento=3
-                and municion_almacenComando.situacion=1"
+                "SELECT municion_almacencomando.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, 
+                municion_situacion.descripcion as motivo, documento, observaciones,
+                (CASE municion_almacencomando.movimiento
+                        WHEN 1 THEN 'ENTRADA A ALMACEN'
+                        WHEN 2 THEN 'INGRESO FABRICA'
+                        WHEN 3 THEN 'SALIDA FABRICA'
+                        WHEN 4 THEN 'ASGINADO A BATALLON'
+                        END
+                    ) as movimiento, fecha, mdep.dep_desc_md as departamento,  trim(grados1.gra_desc_ct) as grado, 
+                trim(mper1.per_nom1) || ' ' || trim(mper1.per_nom2) || ' ' || trim(mper1.per_ape1) || ' ' || trim(mper1.per_ape2) as catalogo, 
+                nvl(trim(grados2.gra_desc_ct), '') as gradosalida, 
+                nvl(trim(mper2.per_nom1) || ' ' || trim(mper2.per_nom2) || ' ' || trim(mper2.per_ape1) || ' ' || trim(mper2.per_ape2), 'FABRICA' )as catalogosalida
+            
+                from municion_almacencomando left join mper mper2 on catalogosalida = mper2.per_catalogo left join grados grados2 on mper2.per_grado = grados2.gra_codigo, municion_lote, municion_calibre, municion_situacion, mdep, mper mper1, grados grados1
+                where municion_almacencomando.lote=municion_lote.id
+                and municion_almacencomando.calibre=municion_calibre.id
+                and municion_almacencomando.motivo=municion_situacion.id
+                and municion_almacencomando.departamento=mdep.dep_llave
+                and municion_almacencomando.catalogo=mper1.per_catalogo
+                and mper1.per_grado = grados1.gra_codigo
+                and municion_almacencomando.departamento=$org_dep
+                and municion_almacencomando.movimiento between 3 and 4 
+                and municion_almacencomando.situacion=1
+                order by municion_almacencomando.fecha desc"
             );
             echo json_encode($almacenComandos);
         } catch (Exception $e) {
@@ -588,7 +620,7 @@ class almacenComandoController
 
 
     }
-    public function buscarRechazo()
+    public static function buscarRechazo()
     {
         getHeadersApi();
 
@@ -618,13 +650,13 @@ class almacenComandoController
 
 
     }
-    public function historialFabrica()
+    public static function historialFabrica()
     {
         getHeadersApi();
 
-        $usuario = 644112;
+        // $usuario = 606871;
 
-        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = $usuario");
+        $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER");
         foreach ($dependencias as $key => $value) {
 
             $dependencia = $value['dep_desc_ct'];
@@ -633,23 +665,31 @@ class almacenComandoController
 
         try {
             $almacenComandos = almacenComando::fetchArray(
-                "SELECT municion_ingresoalmacen.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, 
-                municion_situacion.descripcion as motivo, documento, observaciones, (CASE municion_ingresoalmacen.movimiento
-                        WHEN 1 THEN 'ENTRADA FABRICA'
+                "SELECT municion_almacencomando.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, municion_situacion.descripcion as motivo,
+                documento, observaciones, (CASE municion_almacencomando.movimiento
+                        WHEN 1 THEN 'ENTRADA A ALMACEN'
                         WHEN 2 THEN 'INGRESO FABRICA'
                         WHEN 3 THEN 'SALIDA FABRICA'
-                        WHEN 4 THEN 'RECHAZO SMG'
+                        WHEN 4 THEN 'ASGINADO A BATALLON'
                         END
-                    ) as movimiento, municion_ingresoalmacen.situacion as situacion,
-                 fecha, mdep.dep_desc_md as departamento
-                from municion_ingresoalmacen, municion_lote, municion_calibre, municion_situacion, mdep 
-                where municion_ingresoalmacen.lote=municion_lote.id
-                and municion_ingresoalmacen.calibre=municion_calibre.id
-                and municion_ingresoalmacen.motivo=municion_situacion.id
-                and municion_ingresoalmacen.departamento=mdep.dep_llave
+                    ) as movimiento, fecha, mdep.dep_desc_md as departamento, trim(grados1.gra_desc_ct) as grado, 
+                trim(mper1.per_nom1) || ' ' || trim(mper1.per_nom2) || ' ' || trim(mper1.per_ape1) || ' ' || trim(mper1.per_ape2) as catalogo, 
+                nvl(trim(grados2.gra_desc_ct), '') as gradosalida, 
+                nvl(trim(mper2.per_nom1) || ' ' || trim(mper2.per_nom2) || ' ' || trim(mper2.per_ape1) || ' ' || trim(mper2.per_ape2), 'FABRICA' )as catalogosalida
+            
+
+
+                from municion_almacencomando left join mper mper2 on catalogosalida = mper2.per_catalogo left join grados grados2 on mper2.per_grado = grados2.gra_codigo, municion_lote, municion_calibre, municion_situacion, mdep, mper mper1, grados grados1
+                where municion_almacencomando.lote=municion_lote.id
+                and municion_almacencomando.calibre=municion_calibre.id
+                and municion_almacencomando.motivo=municion_situacion.id
+                and municion_almacencomando.departamento=mdep.dep_llave
+                and municion_almacencomando.catalogo=mper1.per_catalogo
+                and mper1.per_grado = grados1.gra_codigo
+                and municion_almacencomando.departamento=$org_dep
                 
-                and municion_ingresoalmacen.departamento= $org_dep
-                and municion_ingresoalmacen.situacion=6"
+                and municion_almacencomando.situacion=5
+                order by municion_almacencomando.fecha desc"
             );
             echo json_encode($almacenComandos);
         } catch (Exception $e) {
@@ -664,7 +704,7 @@ class almacenComandoController
 
     }
 
-    public function modificarAPI()
+    public static function modificarAPI()
     {
         getHeadersApi();
         $almacenComando = new almacenComando($_POST);
@@ -684,7 +724,7 @@ class almacenComandoController
         }
     }
 
-    public function eliminarAPI()
+    public static function eliminarAPI()
     {
         getHeadersApi();
 
@@ -716,20 +756,17 @@ class almacenComandoController
 
 
 
-
-
-    public function validarRegistro1()
+    public static function validarRegistro1()
     {
         getHeadersApi();
 
+        $id = $_POST['id'];
 
 
-
-
-
-        $almacenComando = almacenComando::find($_POST['id']);
+        $almacenComando = almacenComando::find($id);
 
         $almacenComando->movimiento = 2;
+        // $almacenComando->situacion = 5;
 
         $resultado = $almacenComando->guardar();
 
@@ -748,7 +785,7 @@ class almacenComandoController
 
         }
     }
-    public function trasladarMunicion3()
+    public static function trasladarMunicion3()
     {
         getHeadersApi();
 
@@ -771,7 +808,7 @@ class almacenComandoController
         }
     }
 
-    public function GenerarSalida1()
+    public static function GenerarSalida1()
     {
         getHeadersApi();
 
@@ -779,18 +816,34 @@ class almacenComandoController
 
         try {
 
+
+            // $usuario = 606871;
+
+            $dependencias = almacenComando::fetchArray("SELECT * FROM MPER FULL OUTER JOIN morg ON per_plaza = org_plaza FULL OUTER JOIN mdep ON dep_llave = org_dependencia WHERE per_catalogo = USER");
+            foreach ($dependencias as $key => $value) {
+
+                $dependencia = $value['dep_desc_ct'];
+                $org_dep = $value['org_dependencia'];
+            }
+
+
             $id = $_POST['id'];
 
+            // 
 
-            $sql = " SELECT municion_ingresoalmacen.id as id, municion_ingresoalmacen.lote as  idlote, municion_lote.descripcion as lote, municion_ingresoalmacen.calibre as idcalibre, municion_calibre.descripcion as calibre, cantidad, municion_ingresoalmacen.situacion as idmotivo, municion_situacion.descripcion as motivo
-            from municion_ingresoalmacen, municion_lote, municion_calibre, municion_situacion, mdep 
-            where municion_ingresoalmacen.lote=municion_lote.id
-            and municion_ingresoalmacen.calibre=municion_calibre.id
-            and municion_ingresoalmacen.motivo=municion_situacion.id
-            and municion_ingresoalmacen.departamento=mdep.dep_llave
-            and municion_ingresoalmacen.movimiento=2
-            and municion_ingresoalmacen.situacion=2
-            and municion_ingresoalmacen.id = $id";
+
+            // 
+
+            $sql = "SELECT municion_almacencomando.id as id, municion_almacencomando.lote as  idlote, municion_lote.descripcion as lote, municion_almacencomando.calibre as idcalibre, municion_calibre.descripcion as calibre, cantidad, municion_almacencomando.motivo as idmotivo, municion_situacion.descripcion as motivo, documento, observaciones, catalogosalida
+            from municion_almacencomando, municion_lote, municion_calibre, municion_situacion, mdep 
+            where municion_almacencomando.lote=municion_lote.id
+            and municion_almacencomando.calibre=municion_calibre.id
+            and municion_almacencomando.motivo=municion_situacion.id
+            and municion_almacencomando.departamento=mdep.dep_llave
+            and municion_almacencomando.departamento=$org_dep
+            and municion_almacencomando.movimiento=2
+            and municion_almacencomando.situacion=1
+            and municion_almacencomando.id = $id";
             // echo json_encode($sql);
             // exit;
             $info = almacenComando::fetchArray($sql);
@@ -805,6 +858,9 @@ class almacenComandoController
                 $cantidad = $key['cantidad'];
                 $idmotivo = $key['idmotivo'];
                 $motivo = $key['motivo'];
+                $documento = trim($key['documento']);
+                $observaciones = trim($key['observaciones']);
+                $catalogo = trim($key['catalogosalida']);
 
 
 
@@ -819,6 +875,9 @@ class almacenComandoController
                         "cantidad" => $cantidad,
                         "idmotivo" => $idmotivo,
                         "motivo" => $motivo,
+                        "documento" => $documento,
+                        "observaciones" => $observaciones,
+                        "catalogo" => $catalogo,
 
 
                     ]
@@ -837,7 +896,20 @@ class almacenComandoController
             ]);
         }
     }
-    public function GenerarRegreso1()
+    public static function catalogo()
+    {
+        // hasPermissionApi(['RRMM_COMANDANCI','RRMM_ADMIN','RRMM_DEP_MIL']);
+
+        $catalogo = $_GET['catalogo'];
+
+
+
+
+        $informacion = almacenComando::fetchArray("SELECT trim(gra_desc_ct) as grado, trim(per_nom1) || ' ' || trim(per_nom2) || ' ' || trim(per_ape1) || ' ' || trim(per_ape2) as nombre, ape_id, ape_dep,ape_catalogo  FROM mper inner join grados on per_grado = gra_codigo left join res_asig_per on ape_catalogo = per_catalogo where per_catalogo = $catalogo");
+
+        echo json_encode($informacion);
+    }
+    public static function GenerarRegreso1()
     {
         getHeadersApi();
 
@@ -848,15 +920,15 @@ class almacenComandoController
             $id = $_POST['id'];
 
 
-            $sql = " SELECT municion_ingresoalmacen.id as id, municion_ingresoalmacen.lote as  idlote, municion_lote.descripcion as lote, municion_ingresoalmacen.calibre as idcalibre, municion_calibre.descripcion as calibre, cantidad, municion_ingresoalmacen.situacion as idmotivo, municion_situacion.descripcion as motivo
-            from municion_ingresoalmacen, municion_lote, municion_calibre, municion_situacion, mdep 
-            where municion_ingresoalmacen.lote=municion_lote.id
-            and municion_ingresoalmacen.calibre=municion_calibre.id
-            and municion_ingresoalmacen.motivo=municion_situacion.id
-            and municion_ingresoalmacen.departamento=mdep.dep_llave
-            and municion_ingresoalmacen.movimiento=2
-            and municion_ingresoalmacen.situacion=2
-            and municion_ingresoalmacen.id = $id";
+            $sql = " SELECT municion_almacencomando.id as id, municion_almacencomando.lote as  idlote, municion_lote.descripcion as lote, municion_almacencomando.calibre as idcalibre, municion_calibre.descripcion as calibre, cantidad, municion_almacencomando.motivo as idmotivo, municion_situacion.descripcion as motivo
+            from municion_almacencomando, municion_lote, municion_calibre, municion_situacion, mdep 
+            where municion_almacencomando.lote=municion_lote.id
+            and municion_almacencomando.calibre=municion_calibre.id
+            and municion_almacencomando.motivo=municion_situacion.id
+            and municion_almacencomando.departamento=mdep.dep_llave
+            and municion_almacencomando.movimiento=2
+            and municion_almacencomando.situacion=2
+            and municion_almacencomando.id = $id";
             // echo json_encode($sql);
             // exit;
             $info = almacenComando::fetchArray($sql);
@@ -885,7 +957,6 @@ class almacenComandoController
                         "cantidad" => $cantidad,
                         "idmotivo" => $idmotivo,
                         "motivo" => $motivo,
-
 
                     ]
                 ];

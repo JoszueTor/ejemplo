@@ -4,6 +4,7 @@ import Datatable from 'datatables.net-bs5';
 import { lenguaje } from "../lenguaje";
 import Swal from "sweetalert2";
 
+
 const formCalibre = document.getElementById('formCalibre');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
@@ -83,7 +84,7 @@ const buscarCalibre = async (evento) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        console.log(data);
+        // console.log(data);
 
         
         tablaCalibre.destroy();

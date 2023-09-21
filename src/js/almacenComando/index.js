@@ -1,25 +1,30 @@
-import { Dropdown, Modal } from "bootstrap";
+import { Alert, Dropdown, Modal } from "bootstrap";
 import { validarFormulario, Toast } from "../funciones";
 import Datatable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import Swal from "sweetalert2";
 // import { Modal } from "bootstrap";
 
+
 const formalmacenComando = document.getElementById("formalmacenComando");
 const formalmacenComando1 = document.getElementById("formalmacenComando1");
-const formalmacenComandoAsignado1 = document.getElementById(
-  "formalmacenComandoAsignado"
-);
+const formalmacenComandoAsignado1 = document.getElementById("formalmacenComandoAsignado");
 const formSalida1 = document.getElementById("formSalida1");
 const formRechazo1 = document.getElementById("formRechazo1");
 const formRegreso1 = document.getElementById("formRegreso1");
 const formHistorial = document.getElementById("formHistorial");
-const formDatosTablaFabrica = document.getElementById("formDatosTablaFabrica");
+const formDatosTablaFabrica = document.querySelector("#formDatosTablaFabrica");
 const formdatosTablaRegreso = document.getElementById("formdatosTablaRegreso");
 const btnGuardar = document.getElementById("btnGuardar");
 const BtnCerrar = document.getElementById("BtnCerrar");
 const btnTrasladar = document.getElementById("btnTrasladar");
 const btnRegresar = document.getElementById("btnRegresar");
+const iddependencia = document.getElementById("iddependencia");
+// const BtnAsignarmunicion = document.getElementById("BtnAsignarmunicion");
+
+const catalogoTraslado = document.getElementById("catalogoTraslado");
+const textNombreTraslado = document.querySelector("#textNombreTraslado");
+
 
 const divTabla = document.getElementById("divTabla");
 const divTabla1 = document.getElementById("divTabla1");
@@ -34,61 +39,6 @@ const modalEntradaMunicion = new Modal(document.getElementById("entradafab"));
 const GenerarSalida1 = new Modal(document.getElementById("GenerarSalida"));
 const GenerarRegreso1 = new Modal(document.getElementById("GenerarRegreso"));
 
-// const guardaralmacenComando = async (evento) => {
-//   evento.preventDefault();
-
-//   let formularioValido = validarFormulario(formalmacenComando, ["id"]);
-
-//   if (!formularioValido) {
-//     Toast.fire({
-//       icon: "warning",
-//       title: "Debe llenar todos los campos",
-//     });
-//     return;
-//   }
-
-//   try {
-//     //Crear el cuerpo de la consulta
-//     const url = "/ejemplo/API/almacenComando/guardar";
-//     const body = new FormData(formalmacenComando);
-//     // body.append("cambio","1")
-//     body.delete("id");
-//     const headers = new Headers();
-//     headers.append("X-requested-With", "fetch");
-
-//     const config = {
-//       method: "POST",
-//       headers,
-//       body,
-//     };
-
-//     const respuesta = await fetch(url, config);
-//     const data = await respuesta.json();
-//     //console.log(data);
-//     const { resultado } = data;
-
-//     if (resultado == 1) {
-//       Toast.fire({
-//         icon: "success",
-//         title: "Registro guardado",
-//       });
-
-//       formalmacenComando.reset();
-//       formalmacenComando1.reset();
-//       buscaralmacenComando();
-//       buscaralmacenComando1();
-//       buscarSalidaFab1();
-//       HistorialFabrica();
-//     } else {
-//       Toast.fire({
-//         icon: "error",
-//         title: "Ocurrió un error",
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 const buscaralmacenComando = async (e) => {
   e && e.preventDefault();
@@ -129,19 +79,20 @@ const buscaralmacenComando = async (e) => {
         {
           data: "id",
           render: (data, type, row, meta) => {
+            return `${row.grado} ${" "} ${row.catalogo} `;
+          },
+        },
+        // { data: "catalogosalida" },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+          },
+        },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
             return `<a type="button" class="btn btn-success" onclick="GenerarSalida('${row.id}')">Trasladar</a>`;
-          },
-        },
-        {
-          data: "id",
-          render: (data, type, row, meta) => {
-            return `<a type="button" class="btn btn-info" onclick="GenerarRegreso('${row.id}')">Regresar</a>`;
-          },
-        },
-        {
-          data: "id",
-          render: (data, type, row, meta) => {
-            return `<a type="button" class="btn btn-danger" onclick="eliminarRegistro('${row.id}')">Eliminar</a>`;
           },
         },
       ],
@@ -184,10 +135,24 @@ const buscaralmacenComando1 = async (evento) => {
         { data: "calibre" },
         { data: "motivo" },
         { data: "cantidad" },
+        // { data: "movimiento" },
         { data: "fecha" },
         { data: "documento" },
         { data: "observaciones" },
-        { data: "departamento" },
+        // { data: "departamento" },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.grado} ${" "} ${row.catalogo} `;
+          },
+        },
+        // { data: "catalogosalida" },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+          },
+        },
         {
           data: "id",
           render: (data, type, row, meta) => {
@@ -217,7 +182,7 @@ const buscaralmacenComandoAsignado = async (evento) => {
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
 
-    console.log(data);
+    // console.log(data);
 
     tablaalmacenComandoAsignado.destroy();
     let contador = 1;
@@ -237,19 +202,13 @@ const buscaralmacenComandoAsignado = async (evento) => {
         { data: "motivo" },
         { data: "documento" },
         { data: "observaciones" },
-        { data: "movimiento" },
+        
         { data: "fecha" },
         { data: "departamento" },
-        //   { data: "idbat" },
+    
         { data: "batallon" },
         { data: "cuatrimestre" },
-        // { data: "fecha" },
-        // {
-        //   data: "id",
-        //   render: (data, type, row, meta) => {
-        //     return `<a type="button" class="btn btn-info" onclick="validarRegistro('${row.id}')">Validar</a>`;
-        //   },
-        // },
+      
       ],
     });
   } catch (error) {
@@ -271,7 +230,6 @@ const buscarSalidaFab1 = async (evento) => {
 
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
-
     //console.log(data);
 
     tablaSalidaFab1.destroy();
@@ -294,13 +252,20 @@ const buscarSalidaFab1 = async (evento) => {
         { data: "documento" },
         { data: "observaciones" },
         { data: "departamento" },
-        // { data: "fecha" },
-        // {
-        //   data: "id",
-        //   render: (data, type, row, meta) => {
-        //     return `<a type="button" class="btn btn-info" onclick="validarRegistro('${row.id}')">Validar</a>`;
-        //   },
-        // },
+
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.grado} ${" "} ${row.catalogo} `;
+          },
+        },
+        // { data: "catalogosalida" },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+          },
+        },
       ],
     });
   } catch (error) {
@@ -345,13 +310,7 @@ const buscarRechazoAlmacen = async (evento) => {
         { data: "documento" },
         { data: "observaciones" },
         { data: "departamento" },
-        // { data: "fecha" },
-        // {
-        //   data: "id",
-        //   render: (data, type, row, meta) => {
-        //     return `<a type="button" class="btn btn-info" onclick="validarRegistro('${row.id}')">Validar</a>`;
-        //   },
-        // },
+     
       ],
     });
   } catch (error) {
@@ -397,14 +356,19 @@ const HistorialFabrica = async (evento) => {
         { data: "observaciones" },
         { data: "movimiento" },
         { data: "fecha" },
-        { data: "departamento" },
-        { data: "situacion" },
-        // {
-        //   data: "id",
-        //   render: (data, type, row, meta) => {
-        //     return `<a type="button" class="btn btn-info" onclick="validarRegistro('${row.id}')">Validar</a>`;
-        //   },
-        // },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.grado} ${" "} ${row.catalogo} `;
+          },
+        },
+        // { data: "catalogosalida" },
+        {
+          data: "id",
+          render: (data, type, row, meta) => {
+            return `${row.gradosalida} ${" "} ${row.catalogosalida} `;
+          },
+        },
       ],
     });
   } catch (error) {
@@ -534,7 +498,7 @@ window.GenerarSalida = async (id) => {
 
   const respuesta = await fetch(url, config);
   const info = await respuesta.json();
-  //console.log(info);
+  // console.log(info);
   GenerarSalida1.show();
   info.forEach((info1) => {
     formDatosTablaFabrica.id1.value = info1.id;
@@ -545,6 +509,9 @@ window.GenerarSalida = async (id) => {
     formDatosTablaFabrica.idmotivo1.value = info1.idmotivo;
     formDatosTablaFabrica.motivo1.value = info1.motivo;
     formDatosTablaFabrica.cantidad1.value = info1.cantidad;
+    formDatosTablaFabrica.documento1.value = info1.documento;
+    formDatosTablaFabrica.observaciones1.value =info1.observaciones;
+    formDatosTablaFabrica.catalogo1.value =info1.catalogo;
   });
 };
 
@@ -565,7 +532,7 @@ window.GenerarRegreso = async (id) => {
 
   const respuesta = await fetch(url, config);
   const info = await respuesta.json();
-  //console.log(info);
+  // console.log(info);
   GenerarRegreso1.show();
   info.forEach((info1) => {
     formdatosTablaRegreso.id1.value = info1.id;
@@ -581,17 +548,9 @@ window.GenerarRegreso = async (id) => {
 
 const guardarTraslado = async (evento) => {
   evento.preventDefault();
-  //   let formularioValido = validarFormulario(formDatosTablaFabrica, ["id1"]);
-  //   // console.log(formularioValido);
 
-  //   if (!formularioValido) {
-  //     Toast.fire({
-  //       icon: "warning",
-  //       title: "Debe llenar todos los campos",
-  //     });
-  //     return;
-  //   }
   GenerarSalida1.hide();
+
   try {
     const url = "/ejemplo/API/almacenComando/guardarTraslado";
     const body = new FormData(formDatosTablaFabrica);
@@ -606,7 +565,8 @@ const guardarTraslado = async (evento) => {
 
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
-    console.log(data);
+    // console.log(data);
+    // return;
     const { resultado } = data;
 
     if (resultado == 1) {
@@ -662,7 +622,7 @@ const guardarRegreso = async (evento) => {
 
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
-    console.log(data);
+    // console.log(data);
     const { resultado } = data;
 
     if (resultado == 1) {
@@ -686,7 +646,80 @@ const guardarRegreso = async (evento) => {
   }
 };
 
+// const ApiDerrota = async (e) => {
+// //  var  dependencianew = document.getElementById('iddependencia').value;
+
+//   // alert(dependencianew);
+//   // ?dependencia=${dependencianew}
+
+//   var url = `./Asignacion`;
+
+//   // redirigir el navegador a la URL
+//   window.location.href = url;
+  
+    
+// };
+
+let catalogoTrasladoValidar = false;
+const catalogoTraslado1 = async (e) => {
+  // evento.preventDefault();
+  // alert('funciona_');
+  let catalogo = e.target.value;
+  // alert(catalogo);
+  if (catalogo.length < 6) {
+    textNombreTraslado.textContent = "CATÁLOGO MUY CORTO";
+    textNombreTraslado.classList.add("text-danger");
+    textNombreTraslado.classList.remove("text-success");
+    catalogoTrasladoValidar = false;
+    return;
+  }
+
+  try {
+    const url = `/ejemplo/API/almacenComando/catalogo?catalogo=${catalogo}`;
+    const config = { method: "GET" };
+    const response = await fetch(url, config);
+
+    const info = await response.json();
+    // console.log(info);
+
+    info;
+
+    if (info != "") {
+      if (info[0]["ape_id"] != "") {
+        info.forEach((i) => {
+          textNombreTraslado.textContent = i.grado + " " + i.nombre;
+          textNombreTraslado.classList.remove("text-danger");
+          textNombreTraslado.classList.add("text-success");
+          catalogoTrasladoValidar = true;
+          // btn_guardar.style.display= 'none'
+          // btn_guardar.disabled = true
+          // btn_modificar.disabled = false
+          // btn_modificar.style.display=''
+        });
+      } else {
+        info.forEach((i) => {
+          textNombreTraslado.textContent = i.grado + " " + i.nombre;
+          textNombreTraslado.classList.remove("text-danger");
+          textNombreTraslado.classList.add("text-success");
+          catalogoTrasladoValidar = true;
+        });
+      }
+    } else {
+      textNombreTraslado.textContent = "NO SE ENCONTRARON DATOS";
+      textNombreTraslado.classList.add("text-danger");
+      textNombreTraslado.classList.remove("text-success");
+      catalogoTrasladoValidar = false;
+    }
+  } catch (error) {
+    console.log(error);
+    textNombreTraslado.classList.add("text-danger");
+    textNombreTraslado.classList.remove("text-success");
+    catalogoTrasladoValidar = false;
+  }
+};
 // formalmacenComando.addEventListener("submit", guardaralmacenComando);
 formDatosTablaFabrica.addEventListener("submit", guardarTraslado);
 formdatosTablaRegreso.addEventListener("submit", guardarRegreso);
 formHistorial.addEventListener("submit", HistorialFabrica);
+// BtnAsignarmunicion.addEventListener("click", ApiDerrota);
+catalogoTraslado.addEventListener("change", catalogoTraslado1);

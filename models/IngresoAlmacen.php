@@ -4,10 +4,22 @@ namespace Model;
 
 class IngresoAlmacen extends ActiveRecord
 {
-
     protected static $tabla = 'municion_ingresoalmacen'; //nombre de la tablaX
-    protected static $columnasDB = ['ID', 'LOTE', 'CALIBRE','CANTIDAD', 'MOTIVO', 'DOCUMENTO', 'OBSERVACIONES', 'MOVIMIENTO', 'FECHA', 'DEPARTAMENTO',
-'SITUACION'];
+    protected static $columnasDB = [
+        'ID',
+        'LOTE',
+        'CALIBRE',
+        'CANTIDAD',
+        'MOTIVO',
+        'DOCUMENTO',
+        'OBSERVACIONES',
+        'MOVIMIENTO',
+        'FECHA',
+        'DEPARTAMENTO',
+        'CATALOGO',
+        'CATALOGOSALIDA',
+        'SITUACION'
+    ];
 
     public $id;
     public $lote;
@@ -19,6 +31,8 @@ class IngresoAlmacen extends ActiveRecord
     public $movimiento;
     public $fecha;
     public $departamento;
+    public $catalogo;
+    public $catalogosalida;
     public $situacion;
 
 
@@ -35,7 +49,8 @@ class IngresoAlmacen extends ActiveRecord
         $this->movimiento = $args['movimiento'] ?? '';
         $this->fecha = $args['fecha'] ?? '';
         $this->departamento = $args['departamento'] ?? '';
-
+        $this->catalogo = $args['catalogo'] ?? '';
+        $this->catalogosalida = $args['catalogosalida'] ?? '0';
         $this->situacion = $args['situacion'] ?? '1';
     }
 

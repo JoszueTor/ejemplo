@@ -37,17 +37,23 @@
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/almacenComando"><i class="ms-lg-0 ms-2 bi bi-person-check me-2"></i>Almacen Comando</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Lote"><i class="ms-lg-0 ms-2 bi bi bi-card-heading me-2"></i>Ingreso de Asentamiento</a>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Batallon"><i class="ms-lg-0 ms-2 bi bi bi-card-heading me-2"></i>Almacen Unidad</a>
+                            </li>
+                            <!-- <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Batallon"><i class="ms-lg-0 ms-2 bi bi bi-card-heading me-2"></i>Almacen Compañia</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Calibre"><i class="ms-lg-0 ms-2 bi bi-house me-2"></i>Unidades</a>
-                            </li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/Batallon"><i class="ms-lg-0 ms-2 bi bi bi-card-heading me-2"></i>Almacen Peloton</a>
+                            </li> -->
+                            
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi bi-card-list me-2"></i>Reporte</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/ejemplo/inspectoriaG"><i class="ms-lg-0 ms-2 bi bi bi-card-list me-2"></i>Inspectoria G</a>
+                            </li>
                         
-                    
-                        
+              
                         </ul>
                     </div> 
                     <div class="nav-item dropdown " >
@@ -71,8 +77,7 @@
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi-arrow-left-right me-2"></i>Traslados de Comandos</a>
                             </li> -->
                         
-                    
-                        
+                                            
                         </ul>
                     </div> 
                     <div class="nav-item dropdown " >
@@ -92,9 +97,9 @@
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/Situaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Situaciones</a>
                             </li>
                         
-                            <li>
+                            <!-- <li>
                                 <a class="dropdown-item nav-link text-white " href="/ejemplo/helado"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>helado</a>
-                            </li>
+                            </li> -->
                         
                     
                         

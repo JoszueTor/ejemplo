@@ -49,16 +49,21 @@
                 <label for="cantidad">Cantidad de Municion</label>
                 <input type="number" name="cantidad" id="cantidad" class="form-control">
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-4">
                 <label for="documento">Documento de Referencia</label>
                 <input type="text" name="documento" id="documento" class="form-control"
                     onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+            </div>
+            <div class="col-lg-4">
+                <label for="catalogo">Catalogo de Registro</label>
+                <input type="text" class="form-control" id="catalogo" name="catalogo" maxlength="8" value="">
+                <span class="form-text" id="textNombre"></span>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-lg-12">
                 <label for="observaciones">Observaciones de Municion</label>
-                <textarea type="tex" name="observaciones" id="observaciones" class="form-control" rows="3"
+                <textarea type="tex" name="observaciones" id="observaciones" class="form-control"
                     onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                 </textarea>
             </div>
@@ -106,7 +111,7 @@
                                 </svg>
                             </a>
                             <a type=" button" class="btn btn-info m-1" data-bs-toggle="modal"
-                                data-bs-target="#HISTORIALmunicionfabrica">Registro
+                                data-bs-target="#HISTORIALmunicionfabrica">Historial
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-calendar4-week" viewBox="0 0 16 16">
                                     <path
@@ -115,7 +120,7 @@
                                         d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
                                 </svg>
                             </a>
-                            <a type=" button" class="btn btn-warning m-1" data-bs-toggle="modal"
+                            <!-- <a type=" button" class="btn btn-warning m-1" data-bs-toggle="modal"
                                 data-bs-target="#rechazomunicion">Rechazo Municion
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-calendar4-week" viewBox="0 0 16 16">
@@ -125,14 +130,14 @@
                                         d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
                                 </svg>
 
-                            </a>
+                            </a> -->
 
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-end">
 
-                            <a class="btn btn-info m-1" data-bs-target='#reporteanterior' data-bs-toggle='modal'>
+                            <a class="btn btn-warning m-1" data-bs-target='#reporteanterior' data-bs-toggle='modal'>
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-stopwatch" viewBox="0 0 16 16">
@@ -144,7 +149,8 @@
                                     <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                                     <path
                                         d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
-                                </svg></a>
+                                </svg>
+                            </a>
 
                         </div>
                     </div>
@@ -156,7 +162,7 @@
                 <div class="col-lg-10 p-2">
                     <table id="IngresoFabTabla" class="table table-bordered  table-responsive table-hover">
                         <thead>
-                            <tr>
+                            <tr class="align-middle text-center">
                                 <th>NO.</th>
                                 <th>LOTE</th>
                                 <th>CALIBRE</th>
@@ -164,12 +170,12 @@
                                 <th>CANTIDAD</th>
                                 <th>DOCUMENTO</th>
                                 <th>OBSERVACIONES</th>
-                                <th>TRASLADAR</th>
+                                <th>REGISTRO</th>
 
-                                <th>ELIMINAR</th>
+                                <!-- <th>REGISTRO SALIDA</th> -->
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="align-middle text-center">
 
                         </tbody>
                     </table>
@@ -188,7 +194,7 @@
 
     <div class="modal fade" id="entradafab" name="modalPersonal" tabindex="-1" role="dialog"
         aria-labelledby="infoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
 
             <form id="formIngresoFab1" class="col-12 border p-2 mt-2 bg-light" enctype="multipart/form-data">
 
@@ -199,9 +205,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive" id="divTabla1">
-                            <table class="table table-hover table-condensed table-bordered w-100" id="IngresoFabTabla1">
+                            <table class="table table-hover table-condensed table-bordered w-100 small"
+                                id="IngresoFabTabla1">
                                 <thead class="table-dark text-center">
-                                    <tr>
+                                    <tr class="align-middle text-center">
                                         <th>NO</th>
                                         <th>LOTE</th>
                                         <th>CALIBRE</th>
@@ -215,7 +222,7 @@
 
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="align-middle text-center">
 
 
                                 </tbody>
@@ -223,8 +230,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnCerrar"
-                            data-bs-dismiss="modal">Close</button>
+
 
                     </div>
                 </div>
@@ -246,7 +252,7 @@
 
     <div class="modal fade" id="salidafab" name="modalPersonal" tabindex="-1" role="dialog"
         aria-labelledby="infoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <form id="formSalida1" class="col-12 border p-2 mt-2 bg-light">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -255,9 +261,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive" id="divTabla1">
-                            <table class="table table-hover table-condensed table-bordered w-100" id="SalidaFab1">
+                            <table class="table table-hover table-condensed table-bordered w-100 small" id="SalidaFab1">
                                 <thead class="table-dark text-center">
-                                    <tr>
+                                    <tr class="align-middle text-center">
                                         <th>NO</th>
                                         <th>LOTE</th>
                                         <th>CALIBRE</th>
@@ -267,19 +273,18 @@
                                         <th>DOCUMENTO</th>
                                         <th>OBS</th>
                                         <th>COMANDO</th>
-                                        
+                                        <th>ASIGNADO</th>
+
 
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="align-middle text-center">
 
 
                                 </tbody>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" id="BtnCerrar"
-                                data-bs-dismiss="modal">Close</button>
 
                         </div>
 
@@ -296,18 +301,19 @@
 
     <div class="modal fade" id="HISTORIALmunicionfabrica" name="modalPersonal" tabindex="-1" role="dialog"
         aria-labelledby="infoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <form id="formHistorial" class="col-12 border p-2 mt-2 bg-light">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Registro de Municion</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Historial de Municion</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive" id="divTabla1">
-                            <table class="table table-hover table-condensed table-bordered w-100" id="historialFab">
+                            <table class="table table-hover table-condensed table-bordered w-100 small"
+                                id="historialFab">
                                 <thead class="table-dark text-center">
-                                    <tr>
+                                    <tr class="align-middle text-center">
                                         <th>NO</th>
                                         <th>LOTE</th>
                                         <th>CALIBRE</th>
@@ -317,21 +323,22 @@
                                         <th>DOCUMENTO</th>
                                         <th>OBS</th>
                                         <th>MOVIMIENTO</th>
-                                      
+
                                         <th>COMANDO</th>
-                                        <th>SITUACION</th>
+                                        <th>REGISTRO</th>
+                                        <th>ASIGNADO</th>
+                                        <!-- <th>SITUACION</th> -->
 
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="align-middle text-center">
 
 
                                 </tbody>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" id="BtnCerrar"
-                                data-bs-dismiss="modal">Close</button>
+
 
                         </div>
 
@@ -397,7 +404,6 @@
                                 <input type="text" id="cantidad1" name="cantidad1" class="form-control" required
                                     readonly>
 
-
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -450,6 +456,53 @@
                     <!-- <button type="submit" form="formIngreso" class="btn btn-primary" id="buttonGuardar">Guardar información</button> -->
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rechazomunicion" name="modalPersonal" tabindex="-1" role="dialog"
+        aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <form id="formRechazo1" class="col-12 border p-2 mt-2 bg-light">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">MUNICION RECHAZADA</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive" id="divTabla1">
+                            <table class="table table-hover table-condensed table-bordered w-100 text-center"
+                                id="RechazoAlmacen">
+                                <thead class="table-dark text-center">
+                                    <tr class="align-middle text-center">
+                                        <th>NO</th>
+                                        <th>LOTE</th>
+                                        <th>CALIBRE</th>
+                                        <th>MOTIVO</th>
+                                        <th>CANT</th>
+                                        <th>FECHA</th>
+                                        <th>DOCUMENTO</th>
+                                        <th>OBS</th>
+                                        <th>COMANDO</th>
+                                        <!-- <th>MOVIMIENTO</th> -->
+                                        <!-- <th>FECHA</th> -->
+
+                                    </tr>
+                                </thead>
+                                <tbody class="align-middle text-center">
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="BtnCerrar"
+                                data-bs-dismiss="modal">Close</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <script src="build/js/IngresoFab/index.js"></script>
