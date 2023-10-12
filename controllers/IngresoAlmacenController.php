@@ -601,9 +601,9 @@ and municion_almacencomando.situacion=1
             $IngresoAlmacens = IngresoAlmacen::fetchArray(
                 "SELECT municion_ingresoalmacen.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, municion_situacion.descripcion as motivo, 
                 documento, observaciones, (CASE municion_ingresoalmacen.movimiento
-                        WHEN 1 THEN 'ENTRADA FABRICA'
-                        WHEN 2 THEN 'INGRESO FABRICA'
-                        WHEN 3 THEN 'SALIDA FABRICA'
+                        WHEN 1 THEN 'ENTRADA ALMACEN'
+                        WHEN 2 THEN 'INGRESO ALMACEN'
+                        WHEN 3 THEN 'SALIDA ALMACEN'
                         WHEN 4 THEN 'ASGINADO A BATALLON'
                         END
                     ) as movimiento, fecha, mdep.dep_desc_md as departamento, trim(grados1.gra_desc_ct) as grado, 
@@ -646,9 +646,9 @@ and municion_almacencomando.situacion=1
             $IngresoAlmacens = IngresoAlmacen::fetchArray(
                 "SELECT municion_ingresoalmacen.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, 
                 municion_situacion.descripcion as motivo, documento, observaciones, (CASE municion_ingresoalmacen.movimiento
-                        WHEN 1 THEN 'ENTRADA FABRICA'
-                        WHEN 2 THEN 'INGRESO FABRICA'
-                        WHEN 3 THEN 'SALIDA FABRICA'
+                        WHEN 1 THEN 'ENTRADA ALMACEN'
+                        WHEN 2 THEN 'INGRESO ALMACEN'
+                        WHEN 3 THEN 'SALIDA ALMACEN'
                         WHEN 4 THEN 'ASGINADO A BATALLON'
                         END
                     ) as movimiento, fecha, mdep.dep_desc_md as departamento, trim(grados1.gra_desc_ct) as grado, 
@@ -721,9 +721,9 @@ and municion_almacencomando.situacion=1
             $IngresoAlmacens = IngresoAlmacen::fetchArray(
                 "SELECT municion_ingresoalmacen.id as id, municion_lote.descripcion as lote, municion_calibre.descripcion as calibre, cantidad, municion_situacion.descripcion as motivo, 
                 documento, observaciones, (CASE municion_ingresoalmacen.movimiento
-                        WHEN 1 THEN 'ENTRADA FABRICA'
-                        WHEN 2 THEN 'INGRESO FABRICA'
-                        WHEN 3 THEN 'SALIDA FABRICA'
+                        WHEN 1 THEN 'ENTRADA ALMACEN'
+                        WHEN 2 THEN 'INGRESO ALMACEN'
+                        WHEN 3 THEN 'SALIDA ALMACEN'
                         WHEN 4 THEN 'ASGINADO A BATALLON'
                         END
                     ) as movimiento, fecha, mdep.dep_desc_md as departamento, trim(grados1.gra_desc_ct) as grado, 

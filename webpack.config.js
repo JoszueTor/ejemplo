@@ -17,6 +17,8 @@ module.exports = {
     'js/almacenComando/index' : './src/js/almacenComando/index.js',
     'js/Batallon/index' : './src/js/Batallon/index.js',
     'js/inspectoriaG/index' : './src/js/inspectoriaG/index.js',
+    'js/busqueda/index' : './src/js/busqueda/index.js',
+    'js/Reporte/index' : './src/js/Reporte/index.js',
   },
   output: {
     filename: '[name].js',

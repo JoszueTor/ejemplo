@@ -17,11 +17,15 @@ use Controllers\AppController;
 use Controllers\AsignacionController;
 use Controllers\batallonController;
 use Controllers\inspectoriaGController;
+use Controllers\busquedaController;
+use Controllers\ReporteController;
 
 $router = new Router();
 $router->setBaseURL('/ejemplo');
 
 $router->get('/', [AppController::class, 'index']);
+
+$router->get('/Reporte', [ReporteController::class, 'index']);
 
 $router->get('/productos', [ProductoController::class, 'index']);
 $router->post('/API/productos/guardar', [ProductoController::class, 'guardarAPI']);
@@ -150,6 +154,11 @@ $router->get('/API/Batallon/buscarSinoptico', [batallonController::class, 'busca
 $router->get('/API/Batallon/CompaniaTabla', [batallonController::class, 'CompaniaTabla']);
 $router->get('/API/Batallon/PelotonTabla', [batallonController::class, 'PelotonTabla']);
 
+
+//busqueda
+$router->get('/busqueda', [busquedaController::class, 'index']);
+
+$router->post('/API/busqueda/buscar', [busquedaController::class, 'buscarAPI']);
 
 
 
